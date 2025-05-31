@@ -1,0 +1,7 @@
+*.exe
+.vscode/
+*.py
+save/
+*.dll
+*.7z
+*.code-workspace
