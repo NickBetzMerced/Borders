@@ -1,10 +1,17 @@
 #include "raylib.h"
 #include "./source/borders/character_creator.cpp"
+#include <unistd.h>
+
 
 using namespace std;
 
+
 int main () {
-    Camera2D camera = engine::windows::startTemplate(1600, 900, "Space Game");
+    Camera2D camera = engine::windows::startTemplate(1600, 900, "Borders");
+
+    engine::title_font = LoadFontEx("./assets/fonts/Audiowide.ttf", engine::l_font, 0, 0);
+    engine::body_font = LoadFontEx("./assets/fonts/Anta.ttf", engine::m_font, 0, 0);    
+
     engine::event_tracker::makeEventTracker();
     if (!std::filesystem::exists("./save/player.txt")) {
         CharacterCreator::makeCharacterCreator();
@@ -23,7 +30,7 @@ int main () {
             EndMode2D();
         EndDrawing();
     }
-    
+   
     CloseWindow();
     return 0;
 }

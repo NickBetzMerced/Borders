@@ -4,7 +4,7 @@
 #include "engine.cpp"
 
 struct window : engine::GameObject {
-    enum TYPES {WELCOME_WINDOW};
+    enum TYPES {CHARACTER_CREATOR};
     static const std::array<std::string, 1> TITLES;
     int type;
 

@@ -5,7 +5,7 @@
 #include "borders.h"
 
 bool CharacterCreator::exists = false;
-CharacterCreator::CharacterCreator() : window(window::TYPES::WELCOME_WINDOW) {
+CharacterCreator::CharacterCreator() : window(window::TYPES::CHARACTER_CREATOR) {
     row_selection = 0;
     time_since_enter_pressed = 0;
 
@@ -26,8 +26,8 @@ CharacterCreator::CharacterCreator() : window(window::TYPES::WELCOME_WINDOW) {
         text[1] = "Ship name: ";
         text[2] = "Player government name: ";
         text[3] = "Initial Allegiance: ";
-        text[4] = "Character Backstory (YOU CAN ONLY SELECT): ";
-        text[5] = "DOUBLE PRESS ENTER WHEN YOU ARE DONE";
+        text[4] = "Character Backstory: ";
+        text[5] = "Double click enter to finish";
 
         allegiances[0] = "Human";
         allegiances[1] = "Humanoids";
@@ -56,18 +56,15 @@ CharacterCreator::CharacterCreator() : window(window::TYPES::WELCOME_WINDOW) {
         }
 
         time_since_enter_pressed += GetFrameTime();
-
-        std::cout << "ROW SELECTION: " << row_selection << " COLUMN SELECTION: " << column_selection[row_selection] << std::endl;
     };
 
     draw = [this]() {
         DrawRectangle(x, y, width, height, WHITE);
-        DrawRectangleLinesEx(Rectangle(x, y, width, y + 25), 2, BLACK);
+        DrawRectangleLinesEx(Rectangle(x, y, width, y + 75), 2, BLACK);
         DrawRectangleLinesEx(Rectangle(x, y, width, height), 2, BLACK);
-        DrawText(title.c_str(), x + 5, y + 5, engine::m_font, BLACK);
-
+        DrawTextEx(engine::title_font, title.c_str(), Vector2(x + 5, y + 5), engine::l_font, engine::spacing, BLACK);
         for (unsigned int i = 0; i < CharacterCreator::NUMBER_OF_LINES; i++) {
-            DrawText(text[i].c_str(), x + 5, y + 30 + (i * 30), engine::m_font, BLACK);
+            DrawTextEx(engine::body_font, text[i].c_str(), Vector2(x + 10, y + 85 + (i * 30)), engine::m_font, engine::spacing, BLACK);
         }
     };
 

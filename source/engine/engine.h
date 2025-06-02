@@ -14,11 +14,12 @@ namespace engine {
     static float backspace_delete_delay = 0.05;
 
     Vector2 relative_mouse_pos = {0, 0};
-    Font font = GetFontDefault();
-    int spacing = 4;
+    int spacing = 2;
     int s_font = 15;
-    int m_font = 20;
-    int l_font = 30;
+    int m_font = 30;
+    int l_font = 64;
+    Font title_font;
+    Font body_font;
     bool exit = false;
     unsigned int room = 0;
     bool change_room = true;

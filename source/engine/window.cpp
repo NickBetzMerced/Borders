@@ -11,7 +11,7 @@ void window::makeWindow(int type) {
 }
 
 const std::array<std::string, 1> window::TITLES = {
-    "Welcome to Space Game!"
+    "Character Creator"
 };
 
 window::window() {
@@ -74,7 +74,7 @@ window::window(int type) {
         DrawRectangle(x, y, width, height, WHITE);
         DrawRectangleLinesEx(Rectangle(x, y, width, y + 25), 2, BLACK);
         DrawRectangleLinesEx(Rectangle(x, y, width, height), 2, BLACK);
-        DrawText(title.c_str(), x + 5, y + 5, engine::m_font, BLACK);
+        DrawTextEx(engine::title_font, title.c_str(), Vector2(x + 5, y + 5), engine::l_font, engine::spacing, BLACK);
     };
 }
 
