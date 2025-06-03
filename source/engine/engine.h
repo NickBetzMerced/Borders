@@ -52,12 +52,14 @@ namespace engine {
         std::function<void()> update;
         static void updateAll();
 
-        int x;
-        int y;
+        float x;
+        float y;
         int width;
         int height;
+        float rotation;
         std::string identity;
         bool visible;
+        Texture2D texture;
         GameObject();
 
         std::function<void()> onEnter;
@@ -68,9 +70,13 @@ namespace engine {
         float backspaceTimer;
         std::function<void()> onEscape;
         std::function<void()> onUp;
+        std::function<void()> holdUp;
         std::function<void()> onDown;
+        std::function<void()> holdDown;
         std::function<void()> onLeft;
+        std::function<void()> holdLeft;
         std::function<void()> onRight;
+        std::function<void()> holdRight;
 
         std::function<void()> mouseEnter;
         bool hasMouseEntered;

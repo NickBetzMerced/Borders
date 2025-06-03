@@ -5,7 +5,7 @@
 #include "borders.h"
 
 bool CharacterCreator::exists = false;
-CharacterCreator::CharacterCreator() : window(window::TYPES::CHARACTER_CREATOR) {
+CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) {
     row_selection = 0;
     time_since_enter_pressed = 0;
 

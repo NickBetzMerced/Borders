@@ -6,19 +6,19 @@
 
 #define DEFAULT_FONT_SIZE 20
 
-void window::makeWindow(int type) {
-    engine::GameObject::objects.push_back(std::move(std::make_unique<window>(type)));
+void Window::makeWindow(int type) {
+    engine::GameObject::objects.push_back(std::move(std::make_unique<Window>(type)));
 }
 
-const std::array<std::string, 1> window::TITLES = {
+const std::array<std::string, 1> Window::TITLES = {
     "Character Creator"
 };
 
-window::window() {
+Window::Window() {
 
 }
 
-window::window(int type) {
+Window::Window(int type) {
     visible = true;
     x = 0;
     y = 0;

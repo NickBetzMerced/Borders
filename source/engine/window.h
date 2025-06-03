@@ -3,7 +3,7 @@
 
 #include "engine.cpp"
 
-struct window : engine::GameObject {
+struct Window : engine::GameObject {
     enum TYPES {CHARACTER_CREATOR};
     static const std::array<std::string, 1> TITLES;
     int type;
@@ -11,8 +11,8 @@ struct window : engine::GameObject {
     std::string title;
     bool resizable;
     
-    window();
-    window(int type);
+    Window();
+    Window(int type);
 
     static void makeWindow(int type);
 };

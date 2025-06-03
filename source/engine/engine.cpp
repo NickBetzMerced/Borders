@@ -14,6 +14,7 @@ engine::GameObject::GameObject() {
     y = 0;
     width = 0;
     height = 0;
+    rotation = 0;
     identity = "unassigned";
     visible = false;
     hasMouseEntered = false;
@@ -36,14 +37,26 @@ engine::GameObject::GameObject() {
         if (IsKeyPressed(KEY_UP) && onUp) {
             onUp();
         }
+        if (IsKeyDown(KEY_UP) && holdUp) {
+            holdUp();
+        }
         if (IsKeyPressed(KEY_DOWN) && onDown) {
             onDown();
+        }
+        if (IsKeyDown(KEY_DOWN) && holdDown) {
+            holdDown();
         }
         if (IsKeyPressed(KEY_LEFT) && onLeft) {
             onLeft();
         }
+        if (IsKeyDown(KEY_LEFT) && holdLeft) {
+            holdLeft();
+        }
         if (IsKeyPressed(KEY_RIGHT) && onRight) {
             onRight();
+        }
+        if (IsKeyDown(KEY_RIGHT) && holdRight) {
+            holdRight();
         }
         if (IsKeyPressed(KEY_BACKSPACE) && onBackspace) {
             onBackspace();
