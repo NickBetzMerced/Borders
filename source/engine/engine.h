@@ -9,8 +9,12 @@
 #include <memory>
 #include "raymath.h"
 #include <filesystem>
+#include <format>
+#include <cmath>
 
 namespace engine {
+    const double pi = 3.14159265358979323846;
+    
     static float backspace_delete_delay = 0.05;
 
     Vector2 relative_mouse_pos = {0, 0};

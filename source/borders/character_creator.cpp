@@ -3,6 +3,7 @@
 
 #include "character_creator.h"
 #include "borders.h"
+#include "player.cpp"
 
 bool CharacterCreator::exists = false;
 CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) {
@@ -121,7 +122,7 @@ CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) 
             }
             character_save.close();
 
-
+            Player::makePlayer();
             should_close = true;
             engine::change_room = true;
             engine::room = space_game::ROOMS::SPACE_GAME;

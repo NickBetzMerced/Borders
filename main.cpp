@@ -18,7 +18,6 @@ int main () {
     }
     else {
         Player::makePlayer();
-        std::cout << "MADE PLAYER" << std::endl;
     }
     for (unsigned int i = 0; i < engine::GameObject::objects.size(); i++) {
         std::cout << "Object " << i << "\n";
@@ -27,9 +26,15 @@ int main () {
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(camera);
         engine::GameObject::updateAll();
+        
+        Vector2 mouse = GetMousePosition();
+        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y);
         BeginDrawing();
             BeginMode2D(camera);
             engine::GameObject::drawAll();
+
+            DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
+
             ClearBackground(BLACK);
             EndMode2D();
         EndDrawing();

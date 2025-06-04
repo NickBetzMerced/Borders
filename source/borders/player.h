@@ -5,6 +5,9 @@
 
 struct Player : engine::GameObject {
     float turnRate;
+    float speed;
+    float acceleration;
+    std::string hud_text;
     Player();
     static void makePlayer();
 };
