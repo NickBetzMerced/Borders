@@ -25,3 +25,6 @@ This project is inspired by several games that shaped its design:
 ## Fonts Used
 - *Anta* by Sergej Lebedev, licensed under the SIL Open Font License v1.1: https://openfontlicense.org/ [Google Fonts link] https://fonts.google.com/specimen/Anta
 - *Audiowide* by Brian J. Bonislawsky for Astigmatic (AOETI), licensed under the SIL Open Font license v1.1: https://openfontlicense.org/ [Google Fonts link] https://fonts.google.com/specimen/Audiowide
+
+## Sprites Used
+- *Space Breaker* by Zintoki, licensed under CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/ [Source link] https://zintoki.itch.io/space-breaker
