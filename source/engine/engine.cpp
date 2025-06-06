@@ -7,6 +7,7 @@
 
 std::vector<std::unique_ptr<engine::GameObject>> engine::GameObject::objects;
 engine::GameObject* engine::GameObject::current_object = nullptr;
+bool engine::checked = false;
 
 engine::GameObject::GameObject() {
     should_close = false;
@@ -97,6 +98,7 @@ void engine::GameObject::drawAll() {
     }
 }
 void engine::GameObject::updateAll() {
+    frame_time = GetFrameTime();
     float t = GetTime();
     c = GetCharPressed();
     
@@ -111,7 +113,15 @@ void engine::GameObject::updateAll() {
         if (object->update && object->should_close == false) {
             object->update();
         }
+        if (!checked) {
+            if (object->identity == "unassigned") {
+                std::cout << "WARNING: OBJECT " << i << " HAS NO IDENTITY ASSIGNED" << std::endl;
+            }
+        }
     }
+
+    checked = true;
+
     for (auto it = objects.begin(); it != objects.end(); ) {
         engine::GameObject* object = it->get();
         if (object->should_close == true) {
@@ -180,7 +190,7 @@ void engine::cameras::logic(Camera2D& camera) {
     float wheel = GetMouseWheelMove();
     if (wheel != 0) {
         Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
-        camera.offset = GetMousePosition();
+        // camera.offset = GetMousePosition();
         camera.target = mouseWorldPos;
         camera.zoom += (wheel * zoomIncrement);
         if (camera.zoom < zoomIncrement) { camera.zoom = zoomIncrement; }

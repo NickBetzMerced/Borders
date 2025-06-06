@@ -4,9 +4,10 @@
 #include "player.h"
 
 Player::Player() : engine::GameObject() {
+    identity = "Player";
     turnRate = 80.0;
     speed = 0;
-    acceleration = 10.0;
+    acceleration = 20.0;
     x = 800;
     y = 450;
     visible = true;
@@ -22,8 +23,8 @@ Player::Player() : engine::GameObject() {
     update = [this, b_update]() {
         b_update();
         float rotation_radian = rotation * ((engine::pi) / 180);
-        x += cos(rotation_radian) * speed * GetFrameTime();
-        y += sin(rotation_radian) * speed * GetFrameTime();
+        x += cos(rotation_radian) * speed * engine::frame_time;
+        y += sin(rotation_radian) * speed * engine::frame_time;
         if (rotation > 360) {
             rotation -= 360;
         }
@@ -35,26 +36,25 @@ Player::Player() : engine::GameObject() {
 
     draw = [this, x_half, y_half]() {
         DrawTexturePro(texture, Rectangle{0, 0, (float)texture.width, (float)texture.height}, Rectangle{std::round(x), std::round(y), (float)texture.width, (float)texture.height}, Vector2(x_half, y_half), rotation, WHITE);
-        DrawTextEx(engine::body_font, hud_text.c_str(), Vector2(20, 20), engine::m_font, engine::spacing, WHITE);
     };
 
     holdLeft = [this]() {
-        rotation -= turnRate * GetFrameTime();
+        rotation -= turnRate * engine::frame_time;
         std::cout << "LEFT " << std::endl;
     };
 
     holdRight = [this]() {
-        rotation += turnRate * GetFrameTime();
+        rotation += turnRate * engine::frame_time;
         std::cout << "RIGHT " << std::endl;
     };
 
     holdUp = [this]() {
-        speed += acceleration * GetFrameTime();
+        speed += acceleration * engine::frame_time;
     };
 
     holdDown = [this]() {
         if (speed > 0) {
-            speed -= acceleration * GetFrameTime();
+            speed -= acceleration * engine::frame_time;
         }
         else {
             speed = 0;

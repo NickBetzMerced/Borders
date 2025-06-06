@@ -14,7 +14,11 @@
 
 namespace engine {
     const double pi = 3.14159265358979323846;
+
+    extern bool checked;
     
+    float frame_time;
+
     static float backspace_delete_delay = 0.05;
 
     Vector2 relative_mouse_pos = {0, 0};

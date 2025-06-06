@@ -19,24 +19,38 @@ int main () {
     else {
         Player::makePlayer();
     }
+
+    Player* player;
+
     for (unsigned int i = 0; i < engine::GameObject::objects.size(); i++) {
         std::cout << "Object " << i << "\n";
+        if (engine::GameObject::objects[i]->identity == "Player") {
+            player = static_cast<Player*>(engine::GameObject::objects[i].get());
+        }
     }
     SetExitKey(KEY_NULL);
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(camera);
+        camera.target = Vector2({player->x - 800, player->y - 450});
+        camera.offset = Vector2({800 - (800) * camera.zoom, 450 - (450) * camera.zoom});
+        if (IsKeyPressed(KEY_F3)) {
+            std::cout << "CAMERA ZOOM: " << camera.zoom << std::endl;
+            std::cout << "CAMERA TARGET: " << camera.target.x << " x " << camera.target.y << std::endl;
+            std::cout << "CAMERA OFFSET: " << camera.offset.x << " x " << camera.offset.y << std::endl;
+        }
         engine::GameObject::updateAll();
-        
+
         Vector2 mouse = GetMousePosition();
-        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y);
+        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}\nPLAYER INFO: S: {:.0f} , R: {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, camera.target.x, camera.target.y, camera.offset.x, camera.offset.y, player->speed, player->rotation);
         BeginDrawing();
             BeginMode2D(camera);
             engine::GameObject::drawAll();
 
-            DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
+            
 
             ClearBackground(BLACK);
             EndMode2D();
+            DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
         EndDrawing();
     }
    
