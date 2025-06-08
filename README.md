@@ -28,4 +28,4 @@ This project is inspired by several games that shaped its design:
 
 ## Sprites Used
 - *Space Breaker* by Zintoki, licensed under CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/ [Source link] https://zintoki.itch.io/space-breaker
-- Background image of stars by Francesco Ungaro, taken from Pexels https://www.pexels.com/photo/starry-sky-998641/ licensed under the Pexels license https://www.pexels.com/license/ renamed to "stars.jpg" in the background folder.
+- Background image of stars by TheClicketyBoom, licensed under CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/ [Source link] https://opengameart.org/content/3-layer-parallax-star-and-nebula-field 

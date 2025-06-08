@@ -14,7 +14,7 @@ int main () {
 
     engine::event_tracker::makeEventTracker();
 
-    Texture2D background = LoadTexture("./assets/sprites/background/stars.jpg");
+    Texture2D background = LoadTexture("./assets/sprites/background/nebulawetstars.png");
     
     if (!std::filesystem::exists("./save/player.txt")) {
         CharacterCreator::makeCharacterCreator();
@@ -23,9 +23,7 @@ int main () {
         Player::makePlayer();
     }
 
-    if (!std::filesystem::exists("./assets/sprites/background/stars.jpg")) {
-        std::cout << "STARS DOES NOT EXIST" << std::endl;
-    }
+    std::cout << "Stars background texture: " << background.width << " x " << background.height << std::endl;
 
     Player* player;
 
@@ -41,23 +39,26 @@ int main () {
         engine::cameras::logic(camera);
         camera.target = Vector2({player->x - 800, player->y - 450});
         camera.offset = Vector2({800 - (800) * camera.zoom, 450 - (450) * camera.zoom});
-        if (IsKeyPressed(KEY_F3)) {
-            std::cout << "CAMERA ZOOM: " << camera.zoom << std::endl;
-            std::cout << "CAMERA TARGET: " << camera.target.x << " x " << camera.target.y << std::endl;
-            std::cout << "CAMERA OFFSET: " << camera.offset.x << " x " << camera.offset.y << std::endl;
-        }
+        
+        Vector2 layer_1_offset = Vector2Scale(camera.target, 0.1);
+
         engine::GameObject::updateAll();
 
         Vector2 mouse = GetMousePosition();
         std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, camera.target.x, camera.target.y, camera.offset.x, camera.offset.y);
         BeginDrawing();
+            ClearBackground(BLACK);
+            for (int i = -3; i <= 3; i++) {
+                for (int j = -3; j <= 3; j++) {
+                    DrawTextureEx(background, Vector2(-layer_1_offset.x + i * background.width * 0.25, -layer_1_offset.y + j * background.height * 0.25), 0, 0.25, WHITE);
+                }
+            }
             BeginMode2D(camera);
-            DrawTextureEx(background, Vector2(0, 0), 0, 0.25, WHITE);
+            
             engine::GameObject::drawAll();
 
-            
-            ClearBackground(BLACK);
             EndMode2D();
+            
             engine::GameObject::drawAllIndependent();
             DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
         EndDrawing();
