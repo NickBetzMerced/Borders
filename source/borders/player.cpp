@@ -37,15 +37,17 @@ Player::Player() : engine::GameObject() {
     draw = [this, x_half, y_half]() {
         DrawTexturePro(texture, Rectangle{0, 0, (float)texture.width, (float)texture.height}, Rectangle{std::round(x), std::round(y), (float)texture.width, (float)texture.height}, Vector2(x_half, y_half), rotation, WHITE);
     };
+    
+    drawIndependent = [this]() {
+        DrawTextEx(engine::body_font, hud_text.c_str(), Vector2(20, 20), engine::m_font, engine::spacing, WHITE);
+    };
 
     holdLeft = [this]() {
         rotation -= turnRate * engine::frame_time;
-        std::cout << "LEFT " << std::endl;
     };
 
     holdRight = [this]() {
         rotation += turnRate * engine::frame_time;
-        std::cout << "RIGHT " << std::endl;
     };
 
     holdUp = [this]() {

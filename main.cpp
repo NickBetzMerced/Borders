@@ -13,11 +13,18 @@ int main () {
     engine::body_font = LoadFontEx("./assets/fonts/Anta.ttf", engine::m_font, 0, 0);    
 
     engine::event_tracker::makeEventTracker();
+
+    Texture2D background = LoadTexture("./assets/sprites/background/stars.jpg");
+    
     if (!std::filesystem::exists("./save/player.txt")) {
         CharacterCreator::makeCharacterCreator();
     }
     else {
         Player::makePlayer();
+    }
+
+    if (!std::filesystem::exists("./assets/sprites/background/stars.jpg")) {
+        std::cout << "STARS DOES NOT EXIST" << std::endl;
     }
 
     Player* player;
@@ -28,6 +35,7 @@ int main () {
             player = static_cast<Player*>(engine::GameObject::objects[i].get());
         }
     }
+
     SetExitKey(KEY_NULL);
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(camera);
@@ -41,15 +49,16 @@ int main () {
         engine::GameObject::updateAll();
 
         Vector2 mouse = GetMousePosition();
-        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}\nPLAYER INFO: S: {:.0f} , R: {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, camera.target.x, camera.target.y, camera.offset.x, camera.offset.y, player->speed, player->rotation);
+        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, camera.target.x, camera.target.y, camera.offset.x, camera.offset.y);
         BeginDrawing();
             BeginMode2D(camera);
+            DrawTextureEx(background, Vector2(0, 0), 0, 0.25, WHITE);
             engine::GameObject::drawAll();
 
             
-
             ClearBackground(BLACK);
             EndMode2D();
+            engine::GameObject::drawAllIndependent();
             DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
         EndDrawing();
     }

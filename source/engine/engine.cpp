@@ -97,6 +97,15 @@ void engine::GameObject::drawAll() {
         }
     }
 }
+void engine::GameObject::drawAllIndependent() {
+    for (auto& object : objects) {
+        if (object->drawIndependent) {
+            object->drawIndependent();
+        }
+    }
+}
+
+
 void engine::GameObject::updateAll() {
     frame_time = GetFrameTime();
     float t = GetTime();

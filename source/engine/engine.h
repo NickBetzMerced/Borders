@@ -57,6 +57,8 @@ namespace engine {
 
         std::function<void()> draw;
         static void drawAll();
+        std::function<void()> drawIndependent;
+        static void drawAllIndependent();
         std::function<void()> update;
         static void updateAll();
 
