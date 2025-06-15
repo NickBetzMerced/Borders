@@ -125,7 +125,7 @@ CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) 
             Player::makePlayer();
             should_close = true;
             engine::change_room = true;
-            engine::room = space_game::ROOMS::SPACE_GAME;
+            engine::room = borders::ROOMS::SPACE_GAME;
         }
         time_since_enter_pressed = 0;
     };

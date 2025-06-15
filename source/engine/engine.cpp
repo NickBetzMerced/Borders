@@ -9,6 +9,11 @@ std::vector<std::unique_ptr<engine::GameObject>> engine::GameObject::objects;
 engine::GameObject* engine::GameObject::current_object = nullptr;
 bool engine::checked = false;
 
+Camera2D engine::camera = engine::windows::startTemplate(1600, 900, "Borders");
+
+char engine::caret = ' ';
+char engine::c = ' ';
+
 engine::GameObject::GameObject() {
     should_close = false;
     x = 0;

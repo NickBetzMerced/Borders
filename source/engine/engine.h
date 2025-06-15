@@ -13,29 +13,33 @@
 #include <cmath>
 
 namespace engine {
-    const double pi = 3.14159265358979323846;
+    constexpr double pi = 3.14159265358979323846;
 
     extern bool checked;
     
     float frame_time;
 
-    static float backspace_delete_delay = 0.05;
+    constexpr float backspace_delete_delay = 0.05;
+
+    extern Camera2D camera;
 
     Vector2 relative_mouse_pos = {0, 0};
-    int spacing = 2;
-    int s_font = 15;
-    int m_font = 30;
-    int l_font = 64;
+
+    constexpr int spacing = 2;
+    constexpr int s_font = 15;
+    constexpr int m_font = 30;
+    constexpr int l_font = 64;
     Font title_font;
     Font body_font;
+
     bool exit = false;
     unsigned int room = 0;
     bool change_room = true;
 
-    char c;
+    extern char c;
 
-    char caret = ' ';
-    float caret_delay = 0.5;
+    extern char caret;
+    constexpr float caret_delay = 0.5;
 
     template <typename T>
     struct ArrayList {
