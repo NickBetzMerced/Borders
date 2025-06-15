@@ -15,6 +15,7 @@ char engine::caret = ' ';
 char engine::c = ' ';
 
 engine::GameObject::GameObject() {
+    parent = nullptr;
     should_close = false;
     x = 0;
     y = 0;

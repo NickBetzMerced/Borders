@@ -12,7 +12,6 @@ borders::BackgroundStars::BackgroundStars() : engine::GameObject() {
     update = [this]() {
         wet_layer_offset = Vector2(0, 0) - Vector2Scale(engine::camera.target, 0.1);
         dry_layer_offset = Vector2(0, 0) - Vector2Scale(engine::camera.target, 0.1);
-        std::cout << wet_layer_offset.x << " x" << wet_layer_offset.y << std::endl;
     };
 
     drawIndependent = [this]() {

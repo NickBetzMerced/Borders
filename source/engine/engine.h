@@ -76,6 +76,9 @@ namespace engine {
         std::string identity;
         bool visible;
         Texture2D texture;
+
+        GameObject* parent;
+        std::vector<GameObject*> children;
         GameObject();
 
         std::function<void()> onEnter;

@@ -2,6 +2,7 @@
 #include "./source/borders/character_creator.cpp"
 #include "./source/borders/player.cpp"
 #include "./source/borders/borders.cpp"
+#include "./source/borders/main_menu.cpp"
 #include <unistd.h>
 
 
@@ -14,8 +15,9 @@ int main () {
 
     borders::BackgroundStars::makeBackgroundStars();
     engine::event_tracker::makeEventTracker();
-
     
+    MainMenu::makeMainMenu();
+
     if (!std::filesystem::exists("./save/player.txt")) {
         CharacterCreator::makeCharacterCreator();
     }
