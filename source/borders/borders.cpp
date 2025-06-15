@@ -10,12 +10,12 @@ borders::BackgroundStars::BackgroundStars() : engine::GameObject() {
     texture2 = LoadTexture("./assets/sprites/background/nebulawetstars.png");
 
     update = [this]() {
-        wet_layer_offset = Vector2Scale(engine::camera.target, 0.001);
-        dry_layer_offset = Vector2Scale(engine::camera.target, 0.001);
+        wet_layer_offset = Vector2(0, 0) - Vector2Scale(engine::camera.target, 0.1);
+        dry_layer_offset = Vector2(0, 0) - Vector2Scale(engine::camera.target, 0.1);
         std::cout << wet_layer_offset.x << " x" << wet_layer_offset.y << std::endl;
     };
 
-    draw = [this]() {
+    drawIndependent = [this]() {
         for (int i = -3; i <= 3; i++) {
             for (int j = -3; j <= 3; j++) {
                 DrawTextureEx(texture, dry_layer_offset, 0, 1, WHITE);

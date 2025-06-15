@@ -95,6 +95,14 @@ engine::GameObject::GameObject() {
 
 }
 
+
+void engine::GameObject::drawAllIndependent() {
+    for (auto& object : objects) {
+        if (object->drawIndependent) {
+            object->drawIndependent();
+        }
+    }
+}
 void engine::GameObject::drawAll() {
     for (auto& object : objects) {
         if (object->draw && object->visible) {
@@ -102,10 +110,10 @@ void engine::GameObject::drawAll() {
         }
     }
 }
-void engine::GameObject::drawAllIndependent() {
+void engine::GameObject::drawAllGUI() {
     for (auto& object : objects) {
-        if (object->drawIndependent) {
-            object->drawIndependent();
+        if (object->drawGUI) {
+            object->drawGUI();
         }
     }
 }

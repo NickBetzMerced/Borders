@@ -38,7 +38,7 @@ Player::Player() : engine::GameObject() {
         DrawTexturePro(texture, Rectangle{0, 0, (float)texture.width, (float)texture.height}, Rectangle{std::round(x), std::round(y), (float)texture.width, (float)texture.height}, Vector2(x_half, y_half), rotation, WHITE);
     };
     
-    drawIndependent = [this]() {
+    drawGUI = [this]() {
         DrawTextEx(engine::body_font, hud_text.c_str(), Vector2(20, 20), engine::m_font, engine::spacing, WHITE);
     };
 

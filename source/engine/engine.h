@@ -59,10 +59,12 @@ namespace engine {
         static std::vector<std::unique_ptr<GameObject>> objects;
         static GameObject* current_object;
 
-        std::function<void()> draw;
-        static void drawAll();
         std::function<void()> drawIndependent;
         static void drawAllIndependent();
+        std::function<void()> draw;
+        static void drawAll();
+        std::function<void()> drawGUI;
+        static void drawAllGUI();
         std::function<void()> update;
         static void updateAll();
 

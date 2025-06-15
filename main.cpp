@@ -47,13 +47,15 @@ int main () {
         BeginDrawing();
             ClearBackground(BLACK);
             
+            engine::GameObject::drawAllIndependent();
+
             BeginMode2D(engine::camera);
             
             engine::GameObject::drawAll();
 
             EndMode2D();
             
-            engine::GameObject::drawAllIndependent();
+            engine::GameObject::drawAllGUI();
             DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
         EndDrawing();
     }
