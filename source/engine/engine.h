@@ -23,6 +23,8 @@ namespace engine {
 
     extern Camera2D camera;
 
+    extern bool l_mouse_clicked;
+    extern Vector2 mouse_pos;
     Vector2 relative_mouse_pos = {0, 0};
 
     constexpr int spacing = 2;
@@ -33,8 +35,8 @@ namespace engine {
     Font body_font;
 
     bool exit = false;
-    unsigned int room = 0;
-    bool change_room = true;
+    extern unsigned int room;
+    extern bool change_room;
 
     extern char c;
 

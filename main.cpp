@@ -44,8 +44,7 @@ int main () {
 
         engine::GameObject::updateAll();
 
-        Vector2 mouse = GetMousePosition();
-        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}", mouse.x, mouse.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, engine::camera.target.x, engine::camera.target.y, engine::camera.offset.x, engine::camera.offset.y);
+        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}", engine::mouse_pos.x, engine::mouse_pos.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, engine::camera.target.x, engine::camera.target.y, engine::camera.offset.x, engine::camera.offset.y);
         BeginDrawing();
             ClearBackground(BLACK);
             

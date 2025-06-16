@@ -5,6 +5,9 @@
 #include <map>
 #include <iostream>
 
+unsigned int engine::room = 0;
+bool engine::change_room = false;
+
 std::vector<std::unique_ptr<engine::GameObject>> engine::GameObject::objects;
 engine::GameObject* engine::GameObject::current_object = nullptr;
 bool engine::checked = false;
@@ -13,6 +16,9 @@ Camera2D engine::camera = engine::windows::startTemplate(1600, 900, "Borders");
 
 char engine::caret = ' ';
 char engine::c = ' ';
+
+Vector2 engine::mouse_pos = GetMousePosition();
+bool engine::l_mouse_clicked = false;
 
 engine::GameObject::GameObject() {
     parent = nullptr;
@@ -121,6 +127,9 @@ void engine::GameObject::drawAllGUI() {
 
 
 void engine::GameObject::updateAll() {
+    mouse_pos = GetMousePosition();
+    l_mouse_clicked = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+
     frame_time = GetFrameTime();
     float t = GetTime();
     c = GetCharPressed();
