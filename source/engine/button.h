@@ -1,10 +1,10 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "engine.cpp"
+#include "engine.h"
 
 struct Button : engine::GameObject {
-    enum TYPES {PLAY, SETTINGS, BACK};
+    enum TYPES {PLAY, SETTINGS, BACK, EXIT, APPLY_SETTINGS, TRUE, FALSE};
     int width;
     int height;
     int type;

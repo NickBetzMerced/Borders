@@ -5,6 +5,12 @@
 #include <map>
 #include <iostream>
 
+unsigned int engine::ambience_volume = 100;
+unsigned int engine::sfx_volume = 100;
+unsigned int engine::resolution_x = 1600;
+unsigned int engine::resolution_y = 900;
+bool engine::fullscreen = false;
+
 unsigned int engine::room = 0;
 bool engine::change_room = false;
 
@@ -18,7 +24,13 @@ char engine::caret = ' ';
 char engine::c = ' ';
 
 Vector2 engine::mouse_pos = GetMousePosition();
+Vector2 engine::relative_mouse_pos = {0, 0};
 bool engine::l_mouse_clicked = false;
+
+float engine::frame_time = GetFrameTime();
+
+Font engine::title_font = LoadFontEx("./assets/fonts/Audiowide.ttf", engine::l_font, 0, 0);
+Font engine::body_font = LoadFontEx("./assets/fonts/Anta.ttf", engine::m_font, 0, 0);    
 
 engine::GameObject::GameObject() {
     parent = nullptr;

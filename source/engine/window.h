@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "engine.cpp"
+#include "engine.h"
 
 struct Window : engine::GameObject {
     enum TYPES {CHARACTER_CREATOR};

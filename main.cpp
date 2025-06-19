@@ -1,18 +1,15 @@
 #include "raylib.h"
-#include "./source/borders/character_creator.cpp"
-#include "./source/borders/player.cpp"
-#include "./source/borders/borders.cpp"
-#include "./source/borders/main_menu.cpp"
+#include "./source/borders/character_creator.h"
+#include "./source/borders/player.h"
+#include "./source/borders/borders.h"
+#include "./source/borders/main_menu.h"
 #include <unistd.h>
-
+#include <iostream>
 
 using namespace std;
 
 
 int main () {
-    engine::title_font = LoadFontEx("./assets/fonts/Audiowide.ttf", engine::l_font, 0, 0);
-    engine::body_font = LoadFontEx("./assets/fonts/Anta.ttf", engine::m_font, 0, 0);    
-
     
     engine::event_tracker::makeEventTracker();
     

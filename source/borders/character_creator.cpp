@@ -3,7 +3,8 @@
 
 #include "character_creator.h"
 #include "borders.h"
-#include "player.cpp"
+#include "player.h"
+#include <iostream>
 
 bool CharacterCreator::exists = false;
 CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) {

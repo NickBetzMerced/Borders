@@ -35,7 +35,7 @@ Player::Player() : engine::GameObject() {
     };
 
     draw = [this, x_half, y_half]() {
-        DrawTexturePro(texture, Rectangle{0, 0, (float)texture.width, (float)texture.height}, Rectangle{std::round(x), std::round(y), (float)texture.width, (float)texture.height}, Vector2(x_half, y_half), rotation, WHITE);
+        DrawTexturePro(texture, Rectangle{0, 0, (float)texture.width, (float)texture.height}, Rectangle{std::round(x), std::round(y), (float)texture.width, (float)texture.height}, Vector2(x_half, y_half), std::round(rotation), WHITE);
     };
     
     drawGUI = [this]() {

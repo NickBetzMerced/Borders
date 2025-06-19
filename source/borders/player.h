@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "../engine/engine.cpp"
+#include "../engine/engine.h"
 
 struct Player : engine::GameObject {
     float turnRate;

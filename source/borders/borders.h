@@ -1,7 +1,7 @@
 #ifndef BORDERS_H
 #define BORDERS_H
 
-#include "../engine/engine.cpp"
+#include "../engine/engine.h"
 
 namespace borders {
     enum ROOMS {MAIN_MENU, SETTINGS, CHARACTER_CREATOR, IN_GAME};

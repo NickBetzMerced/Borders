@@ -1,13 +1,18 @@
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 
-#include "../engine/button.cpp"
-#include "borders.cpp"
+#include "../engine/button.h"
+#include "borders.h"
 
 struct MainMenu : engine::GameObject {
     Button* play_button;
     Button* settings_button;
+    Button* exit_button;
+
     Button* back_button;
+    Button* apply_settings_button;
+
+    Button* toggle_button;
 
     std::string text;
 

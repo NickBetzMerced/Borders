@@ -15,9 +15,23 @@
 namespace engine {
     constexpr double pi = 3.14159265358979323846;
 
+    constexpr std::array<Vector2, 5> resolutions = {
+        Vector2(640, 480),
+        Vector2(800, 600),
+        Vector2(1280, 720),
+        Vector2(1600, 900),
+        Vector2(1920, 1080)
+    };
+
+    extern unsigned int ambience_volume;
+    extern unsigned int sfx_volume;
+    extern unsigned int resolution_x;
+    extern unsigned int resolution_y;
+    extern bool fullscreen;
+
     extern bool checked;
     
-    float frame_time;
+    extern float frame_time;
 
     constexpr float backspace_delete_delay = 0.05;
 
@@ -25,16 +39,16 @@ namespace engine {
 
     extern bool l_mouse_clicked;
     extern Vector2 mouse_pos;
-    Vector2 relative_mouse_pos = {0, 0};
+    extern Vector2 relative_mouse_pos;
 
     constexpr int spacing = 2;
     constexpr int s_font = 15;
     constexpr int m_font = 30;
     constexpr int l_font = 64;
-    Font title_font;
-    Font body_font;
+    extern Font title_font;
+    extern Font body_font;
 
-    bool exit = false;
+    inline bool exit = false;
     extern unsigned int room;
     extern bool change_room;
 

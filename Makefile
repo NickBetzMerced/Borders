@@ -363,14 +363,29 @@ endif
 # Define a recursive wildcard function
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
 
-# Define all source files required
-SRC_DIR = src
+# Define directories containing source files
+SRC_DIRS = source/borders source/engine
 OBJ_DIR = obj
 
-# Define all object files from source files
-SRC = $(call rwildcard, *.c, *.h)
-#OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJS ?= main.cpp
+# Find all .cpp source files in the specified directories
+SRC = main.cpp $(wildcard source/borders/*.cpp) $(wildcard source/engine/*.cpp)
+
+
+# Convert .cpp file paths to corresponding .o file paths
+OBJS = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+OBJ_FILES = $(patsubst %, $(OBJ_DIR)/%, $(SRC:%.cpp=%.o))
+
+
+# Pattern rule to compile each .cpp file into its corresponding .o file
+$(OBJ_DIR)/%.o: %.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE_PATHS)
+
+
+# Default target
+$(PROJECT_NAME): $(SRC)
+	$(CC) -o $@ $^ $(CFLAGS) $(INCLUDE_PATHS) $(LDFLAGS) $(LDLIBS) -D$(PLATFORM)
+
 
 # For Android platform we call a custom Makefile.Android
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
@@ -386,15 +401,14 @@ endif
 all:
 	$(MAKE) $(MAKEFILE_PARAMS)
 
-# Project target defined by PROJECT_NAME
-$(PROJECT_NAME): $(OBJS)
-	$(CC) -o $(PROJECT_NAME)$(EXT) $(OBJS) $(CFLAGS) $(INCLUDE_PATHS) $(LDFLAGS) $(LDLIBS) -D$(PLATFORM)
 
 # Compile source files
 # NOTE: This pattern will compile every module defined on $(OBJS)
 #%.o: %.c
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE_PATHS) -D$(PLATFORM)
+$(OBJ_DIR)/%.o: %.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE_PATHS)
+
 
 # Clean everything
 clean:
