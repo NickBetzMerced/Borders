@@ -4,7 +4,7 @@
 #include "../engine/engine.cpp"
 
 namespace borders {
-    enum ROOMS {MAIN_MENU = 1, SPACE_GAME = 2};
+    enum ROOMS {MAIN_MENU, SETTINGS, CHARACTER_CREATOR, IN_GAME};
 
     struct BackgroundStars : engine::GameObject {
         Texture2D texture2;

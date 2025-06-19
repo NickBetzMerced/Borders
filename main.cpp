@@ -13,31 +13,41 @@ int main () {
     engine::title_font = LoadFontEx("./assets/fonts/Audiowide.ttf", engine::l_font, 0, 0);
     engine::body_font = LoadFontEx("./assets/fonts/Anta.ttf", engine::m_font, 0, 0);    
 
-    borders::BackgroundStars::makeBackgroundStars();
+    
     engine::event_tracker::makeEventTracker();
     
     MainMenu::makeMainMenu();
 
-    if (!std::filesystem::exists("./save/player.txt")) {
-        CharacterCreator::makeCharacterCreator();
-    }
-    else {
-        Player::makePlayer();
-    }
-
-    Player* player;
-
-    for (unsigned int i = 0; i < engine::GameObject::objects.size(); i++) {
-        std::cout << "Object " << i << "\n";
-        if (engine::GameObject::objects[i]->identity == "Player") {
-            player = static_cast<Player*>(engine::GameObject::objects[i].get());
-        }
-    }
+    Player* player = nullptr;
 
     SetExitKey(KEY_NULL);
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(engine::camera);
-        engine::camera.target = Vector2({player->x - 800, player->y - 450});
+        if (player != nullptr) {
+            engine::camera.target = Vector2({player->x - 800, player->y - 450});
+        }
+
+        if (engine::room == borders::ROOMS::CHARACTER_CREATOR && engine::change_room) {
+            if (!std::filesystem::exists("./save/player.txt")) {
+                engine::change_room = false;
+                CharacterCreator::makeCharacterCreator();
+            }
+            else {
+                Player::makePlayer();
+                borders::BackgroundStars::makeBackgroundStars();
+
+                for (unsigned int i = 0; i < engine::GameObject::objects.size(); i++) {
+                    std::cout << "Object " << i << "\n";
+                    if (engine::GameObject::objects[i]->identity == "Player") {
+                        player = static_cast<Player*>(engine::GameObject::objects[i].get());
+                    }
+                }
+
+                engine::room = borders::ROOMS::IN_GAME;
+                engine::change_room = true;
+            }
+        }
+
         engine::camera.offset = Vector2({800 - (800) * engine::camera.zoom, 450 - (450) * engine::camera.zoom});
         
         

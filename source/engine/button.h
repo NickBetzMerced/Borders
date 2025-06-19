@@ -4,10 +4,13 @@
 #include "engine.cpp"
 
 struct Button : engine::GameObject {
+    enum TYPES {PLAY, SETTINGS, BACK};
     int width;
     int height;
+    int type;
 
     Rectangle rec;
+    bool clicked;
 
     Color text_color;
     Color box_color;
@@ -15,8 +18,8 @@ struct Button : engine::GameObject {
     std::string title;
     Vector2 text_dimension;
     Button();
-    Button(int x, int y, int width, int height, std::string title);
-    static void makeButton(int x, int y, int width, int height, std::string title);
+    Button(int x, int y, int width, int height, std::string title, int type);
+    static Button* makeButton(int x, int y, int width, int height, std::string title, int type);
 
     std::function<void()> onClick;
 };

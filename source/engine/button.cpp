@@ -3,16 +3,21 @@
 
 #include "button.h"
 
-Button::Button(int x, int y, int width, int height, std::string title) : engine::GameObject::GameObject() {
+Button::Button(int x, int y, int width, int height, std::string title, int type) : engine::GameObject::GameObject() {
     this->x = x;
     this->y = y;
     this->width = width;
     this->height = height;
+    this->type = type;
     rec = Rectangle(this->x - (this->width / 2), this->y - (this->height / 2), this->width, this->height);
+    clicked = false;
 
     this->title = title;
     text_color = WHITE;
     box_color = BLACK;
+    text_color.a = 127;
+    box_color.a = 127;
+    
     text_dimension = MeasureTextEx(engine::title_font, title.c_str(), engine::m_font, engine::spacing);
 
     visible = true;
@@ -22,15 +27,14 @@ Button::Button(int x, int y, int width, int height, std::string title) : engine:
             if (onClick) {
                 onClick();
             }
-            should_close = true;
+            clicked = true;
         }
-        std::cout << CheckCollisionPointRec(engine::mouse_pos, rec) << std::endl;
         if (text_color.a < 255 && CheckCollisionPointRec(engine::mouse_pos, rec)) {
-            text_color.a += 1;
+            text_color.a += 2;
             
         }
         else if (text_color.a > 127 && !CheckCollisionPointRec(engine::mouse_pos, rec)) {
-            text_color.a -= 1;
+            text_color.a -= 2;
         }
     };
 
@@ -41,8 +45,11 @@ Button::Button(int x, int y, int width, int height, std::string title) : engine:
     };
 }
 
-void Button::makeButton(int x, int y, int width, int height, std::string title) {
-    engine::GameObject::objects.push_back(std::move(std::make_unique<Button>(x, y, width, height, title)));
+Button* Button::makeButton(int x, int y, int width, int height, std::string title, int type) {
+    std::unique_ptr button = std::make_unique<Button>(x, y, width, height, title, type);
+    Button* button_ptr = button.get();
+    engine::GameObject::objects.push_back(std::move(button));
+    return button_ptr;
 }
 
 #endif
