@@ -23,6 +23,9 @@ Button::Button(int x, int y, int width, int height, std::string title, int type)
     visible = true;
 
     update = [this]() {
+		if (clicked) {
+			clicked = false;
+		}
         if (engine::l_mouse_clicked && CheckCollisionPointRec(engine::mouse_pos, rec)) {
             if (onClick) {
                 onClick();
@@ -30,11 +33,11 @@ Button::Button(int x, int y, int width, int height, std::string title, int type)
             clicked = true;
         }
         if (text_color.a < 255 && CheckCollisionPointRec(engine::mouse_pos, rec)) {
-            text_color.a += 2;
+            text_color.a += 4;
             
         }
         else if (text_color.a > 127 && !CheckCollisionPointRec(engine::mouse_pos, rec)) {
-            text_color.a -= 2;
+            text_color.a -= 4;
         }
     };
 

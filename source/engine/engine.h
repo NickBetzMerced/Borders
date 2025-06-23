@@ -28,6 +28,7 @@ namespace engine {
     extern unsigned int resolution_x;
     extern unsigned int resolution_y;
     extern bool fullscreen;
+	extern bool settings_updated;
 
     extern bool checked;
     

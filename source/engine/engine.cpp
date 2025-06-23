@@ -10,6 +10,7 @@ unsigned int engine::sfx_volume = 100;
 unsigned int engine::resolution_x = 1600;
 unsigned int engine::resolution_y = 900;
 bool engine::fullscreen = false;
+bool engine::settings_updated = false;
 
 unsigned int engine::room = 0;
 bool engine::change_room = false;
@@ -145,6 +146,17 @@ void engine::GameObject::updateAll() {
     frame_time = GetFrameTime();
     float t = GetTime();
     c = GetCharPressed();
+
+	if (settings_updated) {
+		if (IsWindowFullscreen() && !engine::fullscreen) {
+			ToggleFullscreen();
+		}
+		else if (!IsWindowFullscreen() && engine::fullscreen) {
+			ToggleFullscreen();
+		}
+
+		settings_updated = false;
+	}
     
     if (fmod(t, engine::caret_delay) < engine::caret_delay / 2) {
             engine::caret = '|';
@@ -152,6 +164,7 @@ void engine::GameObject::updateAll() {
     else {
         engine::caret = ' ';
     }
+
     for (unsigned int i = 0; i < objects.size(); i++) {
         engine::GameObject* object = objects[i].get();
         if (object->update && object->should_close == false) {

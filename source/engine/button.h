@@ -4,7 +4,7 @@
 #include "engine.h"
 
 struct Button : engine::GameObject {
-    enum TYPES {PLAY, SETTINGS, BACK, EXIT, APPLY_SETTINGS, TRUE, FALSE};
+    enum TYPES {PLAY, SETTINGS, BACK, EXIT, APPLY_SETTINGS, TRUE, FALSE, RESOLUTION};
     int width;
     int height;
     int type;
