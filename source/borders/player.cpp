@@ -8,8 +8,8 @@ Player::Player() : engine::GameObject() {
     turnRate = 80.0;
     speed = 0;
     acceleration = 20.0;
-    x = 800;
-    y = 450;
+    x = engine::resolution_x / 2;
+    y = engine::resolution_y / 2;
     visible = true;
     texture = LoadTexture("./assets/sprites/ships/medium/body_02.png");
     float x_half = texture.width / 2;

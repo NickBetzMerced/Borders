@@ -16,7 +16,7 @@ struct MainMenu : engine::GameObject {
 	Button* resolution_button;
 
     std::string text;
-	std::array<std::string, 4> sentences;
+	std::array<std::string, NUMBER_OF_SETTINGS> sentences;
 
 	int selected_ambience_volume;
 	int selected_sfx_volume;
@@ -25,6 +25,8 @@ struct MainMenu : engine::GameObject {
 	bool selected_fullscreen;
 
 	unsigned int row_selection;
+	std::array<unsigned int, NUMBER_OF_SETTINGS> column_selection;
+	std::array<unsigned int, NUMBER_OF_SETTINGS> column_limits;
 
     MainMenu();
     static void makeMainMenu();

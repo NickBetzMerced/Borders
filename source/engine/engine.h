@@ -15,8 +15,8 @@
 namespace engine {
     constexpr double pi = 3.14159265358979323846;
 
-    constexpr std::array<Vector2, 5> resolutions = {
-        Vector2(640, 480),
+	enum {NUMBER_OF_RESOLUTIONS = 4};
+    constexpr std::array<Vector2, NUMBER_OF_RESOLUTIONS> resolutions = {
         Vector2(800, 600),
         Vector2(1280, 720),
         Vector2(1600, 900),

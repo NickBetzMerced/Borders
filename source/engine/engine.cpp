@@ -155,6 +155,16 @@ void engine::GameObject::updateAll() {
 			ToggleFullscreen();
 		}
 
+		SetWindowSize(engine::resolution_x, engine::resolution_y);
+
+		std::ofstream settings;
+		settings.open("./save/settings.txt", std::ios::trunc);
+		settings << engine::ambience_volume << "\n";
+		settings << engine::sfx_volume << "\n";
+		settings << engine::resolution_x << " " << engine::resolution_y << "\n";
+		settings << engine::fullscreen << "\n";
+		settings.close();
+
 		settings_updated = false;
 	}
     

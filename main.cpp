@@ -21,7 +21,7 @@ int main () {
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(engine::camera);
         if (player != nullptr) {
-            engine::camera.target = Vector2({player->x - 800, player->y - 450});
+            engine::camera.target = Vector2({player->x - engine::resolution_x / 2, player->y - engine::resolution_y / 2});
         }
 
         if (engine::room == borders::ROOMS::CHARACTER_CREATOR && engine::change_room) {
@@ -45,7 +45,7 @@ int main () {
             }
         }
 
-        engine::camera.offset = Vector2({800 - (800) * engine::camera.zoom, 450 - (450) * engine::camera.zoom});
+        engine::camera.offset = Vector2({engine::resolution_x / 2 - (engine::resolution_x / 2) * engine::camera.zoom, engine::resolution_y / 2 - (engine::resolution_y / 2) * engine::camera.zoom});
         
         
 
