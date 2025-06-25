@@ -23,6 +23,7 @@ Camera2D engine::camera = engine::windows::startTemplate(1600, 900, "Borders");
 
 char engine::caret = ' ';
 char engine::c = ' ';
+int engine::key_pressed = 0;
 
 Vector2 engine::mouse_pos = GetMousePosition();
 Vector2 engine::relative_mouse_pos = {0, 0};
@@ -138,6 +139,30 @@ void engine::GameObject::drawAllGUI() {
     }
 }
 
+void engine::loadAllSettings() {
+	if (std::filesystem::exists("./save/settings.txt")) {
+		std::ifstream save;
+		save.open("./save/settings.txt");
+
+		std::string line;
+
+		std::getline(save, line);
+		engine::ambience_volume = std::stoi(line);
+		std::getline(save, line);
+		engine::sfx_volume = std::stoi(line);
+
+		std::getline(save, line);
+		engine::resolution_x = std::stoi(line);
+		std::getline(save, line);
+		engine::resolution_x = std::stoi(line);
+
+		std::getline(save, line);
+		engine::fullscreen = std::stoi(line);
+
+		engine::settings_updated = true;
+		save.close();
+	}
+}
 
 void engine::GameObject::updateAll() {
     mouse_pos = GetMousePosition();
@@ -146,6 +171,12 @@ void engine::GameObject::updateAll() {
     frame_time = GetFrameTime();
     float t = GetTime();
     c = GetCharPressed();
+
+	key_pressed = GetKeyPressed();
+
+	if (key_pressed) {
+		std::cout << "KEY " << key_pressed << " PRESSED" << std::endl;
+	}
 
 	if (settings_updated) {
 		if (IsWindowFullscreen() && !engine::fullscreen) {
@@ -161,7 +192,7 @@ void engine::GameObject::updateAll() {
 		settings.open("./save/settings.txt", std::ios::trunc);
 		settings << engine::ambience_volume << "\n";
 		settings << engine::sfx_volume << "\n";
-		settings << engine::resolution_x << " " << engine::resolution_y << "\n";
+		settings << engine::resolution_x << "\n" << engine::resolution_y << "\n";
 		settings << engine::fullscreen << "\n";
 		settings.close();
 

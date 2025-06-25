@@ -11,6 +11,8 @@ using namespace std;
 
 int main () {
     
+	engine::loadAllSettings();
+
     engine::event_tracker::makeEventTracker();
     
     MainMenu::makeMainMenu();
@@ -63,8 +65,9 @@ int main () {
 
             EndMode2D();
             
+			DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
             engine::GameObject::drawAllGUI();
-            DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
+            
         EndDrawing();
     }
    

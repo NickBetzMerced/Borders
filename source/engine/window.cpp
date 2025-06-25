@@ -6,12 +6,16 @@
 
 #define DEFAULT_FONT_SIZE 20
 
-void Window::makeWindow(int type) {
-    engine::GameObject::objects.push_back(std::move(std::make_unique<Window>(type)));
+Window* Window::makeWindow(int type) {
+    std::unique_ptr<Window> window = std::make_unique<Window>(type);
+    Window* window_ptr = window.get();
+    engine::GameObject::objects.push_back(std::move(window));
+    return window_ptr;
 }
 
-const std::array<std::string, 1> Window::TITLES = {
-    "Character Creator"
+const std::array<std::string, 2> Window::TITLES = {
+    "Character Creator",
+	"Inventory"
 };
 
 Window::Window() {
@@ -70,11 +74,11 @@ Window::Window(int type) {
         }
     };
 
-    draw = [this]() {
-        DrawRectangle(x, y, width, height, WHITE);
-        DrawRectangleLinesEx(Rectangle(x, y, width, y + 25), 2, BLACK);
-        DrawRectangleLinesEx(Rectangle(x, y, width, height), 2, BLACK);
-        DrawTextEx(engine::title_font, title.c_str(), Vector2(x + 5, y + 5), engine::l_font, engine::spacing, BLACK);
+    drawGUI = [this]() {
+        DrawRectangle(x, y, width, height, BLACK);
+        DrawRectangleLinesEx(Rectangle(x, y, width, y + 85), 2, WHITE);
+        DrawRectangleLinesEx(Rectangle(x, y, width, height), 2, WHITE);
+        DrawTextEx(engine::title_font, title.c_str(), Vector2(x + 10, y + 10), engine::l_font, engine::spacing, WHITE);
     };
 }
 

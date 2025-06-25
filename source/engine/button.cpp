@@ -49,7 +49,7 @@ Button::Button(int x, int y, int width, int height, std::string title, int type)
 }
 
 Button* Button::makeButton(int x, int y, int width, int height, std::string title, int type) {
-    std::unique_ptr button = std::make_unique<Button>(x, y, width, height, title, type);
+    std::unique_ptr<Button> button = std::make_unique<Button>(x, y, width, height, title, type);
     Button* button_ptr = button.get();
     engine::GameObject::objects.push_back(std::move(button));
     return button_ptr;

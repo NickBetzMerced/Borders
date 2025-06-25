@@ -54,9 +54,12 @@ namespace engine {
     extern bool change_room;
 
     extern char c;
+	extern int key_pressed;
 
     extern char caret;
     constexpr float caret_delay = 0.5;
+
+	void loadAllSettings();
 
     template <typename T>
     struct ArrayList {

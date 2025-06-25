@@ -4,8 +4,8 @@
 #include "engine.h"
 
 struct Window : engine::GameObject {
-    enum TYPES {CHARACTER_CREATOR};
-    static const std::array<std::string, 1> TITLES;
+    enum TYPES {CHARACTER_CREATOR, INVENTORY};
+    static const std::array<std::string, 2> TITLES;
     int type;
 
     std::string title;
@@ -14,7 +14,7 @@ struct Window : engine::GameObject {
     Window();
     Window(int type);
 
-    static void makeWindow(int type);
+    static Window* makeWindow(int type);
 };
 
 #endif

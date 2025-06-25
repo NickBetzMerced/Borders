@@ -23,6 +23,7 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
     settings_button = Button::makeButton(800, 450, 160, 40, std::string("SETTINGS"), Button::TYPES::SETTINGS);
     exit_button = Button::makeButton(800, 550, 160, 40, std::string("EXIT"), Button::TYPES::EXIT);
 
+
 	row_selection = 0;
 	for (int i = 0; i < NUMBER_OF_SETTINGS; i++) {
 		column_selection[i] = 0;
@@ -30,6 +31,8 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
 	column_selection[RESOLUTION_INDEX] = 2;
 	column_selection[AMBIENCE_INDEX] = engine::ambience_volume;
 	column_selection[SFX_INDEX] = engine::sfx_volume;
+
+	column_limits[FULLSCREEN_INDEX] = 0;
 	column_limits[AMBIENCE_INDEX] = 100;
 	column_limits[SFX_INDEX] = 100;
 	column_limits[RESOLUTION_INDEX] = engine::NUMBER_OF_RESOLUTIONS - 1;
