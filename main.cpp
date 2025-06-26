@@ -19,7 +19,8 @@ int main () {
 
     Player* player = nullptr;
 
-    SetExitKey(KEY_NULL);
+    SetExitKey(KEY_ESCAPE);
+
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(engine::camera);
         if (player != nullptr) {
@@ -65,7 +66,7 @@ int main () {
 
             EndMode2D();
             
-			DrawTextEx(engine::body_font, text.c_str(), Vector2(10, 700), engine::m_font, engine::spacing, WHITE);
+			DrawTextEx(engine::body_font, text.c_str(), Vector2(10, engine::resolution_y - 200), engine::m_font, engine::spacing, WHITE);
             engine::GameObject::drawAllGUI();
             
         EndDrawing();

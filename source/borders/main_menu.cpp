@@ -14,28 +14,43 @@ void MainMenu::closeButton(Button*& button) {
 MainMenu::MainMenu() : engine::GameObject::GameObject() {
     visible = true;
 
+	unsigned int middle_x = engine::resolution_x / 2;
+	unsigned int middle_y = engine::resolution_y / 2;
+
     back_button = nullptr;
     apply_settings_button = nullptr;
     toggle_button = nullptr;
 	resolution_button = nullptr;
 
-    play_button = Button::makeButton(800, 350, 160, 40, std::string("PLAY"), Button::TYPES::PLAY);
-    settings_button = Button::makeButton(800, 450, 160, 40, std::string("SETTINGS"), Button::TYPES::SETTINGS);
-    exit_button = Button::makeButton(800, 550, 160, 40, std::string("EXIT"), Button::TYPES::EXIT);
+    play_button = Button::makeButton(middle_x, middle_y - 100, 160, 40, std::string("PLAY"), Button::TYPES::PLAY);
+	settings_button = Button::makeButton(middle_x, middle_y, 160, 40, std::string("SETTINGS"), Button::TYPES::SETTINGS);
+	exit_button = Button::makeButton(middle_x, middle_y + 100, 160, 40, std::string("EXIT"), Button::TYPES::EXIT);
 
 
 	row_selection = 0;
 	for (int i = 0; i < NUMBER_OF_SETTINGS; i++) {
 		column_selection[i] = 0;
 	}
-	column_selection[RESOLUTION_INDEX] = 2;
+
+	Vector2 target = Vector2(engine::resolution_x, engine::resolution_y);
+	auto it = std::find(engine::resolutions.begin(), engine::resolutions.end(), target);
+	if (it != engine::resolutions.end()) {
+		column_selection[RESOLUTION_INDEX] = std::distance(engine::resolutions.begin(), it);
+	}
+	else {
+		column_selection[RESOLUTION_INDEX] = 0;
+	}
 	column_selection[AMBIENCE_INDEX] = engine::ambience_volume;
 	column_selection[SFX_INDEX] = engine::sfx_volume;
 
 	column_limits[FULLSCREEN_INDEX] = 0;
 	column_limits[AMBIENCE_INDEX] = 100;
 	column_limits[SFX_INDEX] = 100;
-	column_limits[RESOLUTION_INDEX] = engine::NUMBER_OF_RESOLUTIONS - 1;
+
+	target = Vector2(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
+	it = std::find(engine::resolutions.begin(), engine::resolutions.end(), target);
+
+	column_limits[RESOLUTION_INDEX] = std::distance(engine::resolutions.begin(), it);
 
 	selected_ambience_volume = engine::ambience_volume;
 	selected_sfx_volume = engine::sfx_volume;
@@ -139,6 +154,7 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
 			engine::fullscreen = selected_fullscreen;
 			
 			engine::settings_updated = true;
+			engine::save_settings = true;
 
 			MainMenu::closeButton(back_button);
 			MainMenu::closeButton(apply_settings_button);

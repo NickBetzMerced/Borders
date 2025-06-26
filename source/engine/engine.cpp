@@ -11,6 +11,7 @@ unsigned int engine::resolution_x = 1600;
 unsigned int engine::resolution_y = 900;
 bool engine::fullscreen = false;
 bool engine::settings_updated = false;
+bool engine::save_settings = false;
 
 unsigned int engine::room = 0;
 bool engine::change_room = false;
@@ -29,6 +30,7 @@ Vector2 engine::mouse_pos = GetMousePosition();
 Vector2 engine::relative_mouse_pos = {0, 0};
 bool engine::l_mouse_clicked = false;
 
+float engine::time = 0;
 float engine::frame_time = GetFrameTime();
 
 Font engine::title_font = LoadFontEx("./assets/fonts/Audiowide.ttf", engine::l_font, 0, 0);
@@ -154,7 +156,7 @@ void engine::loadAllSettings() {
 		std::getline(save, line);
 		engine::resolution_x = std::stoi(line);
 		std::getline(save, line);
-		engine::resolution_x = std::stoi(line);
+		engine::resolution_y = std::stoi(line);
 
 		std::getline(save, line);
 		engine::fullscreen = std::stoi(line);
@@ -169,7 +171,7 @@ void engine::GameObject::updateAll() {
     l_mouse_clicked = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 
     frame_time = GetFrameTime();
-    float t = GetTime();
+    time = GetTime();
     c = GetCharPressed();
 
 	key_pressed = GetKeyPressed();
@@ -188,18 +190,22 @@ void engine::GameObject::updateAll() {
 
 		SetWindowSize(engine::resolution_x, engine::resolution_y);
 
-		std::ofstream settings;
-		settings.open("./save/settings.txt", std::ios::trunc);
-		settings << engine::ambience_volume << "\n";
-		settings << engine::sfx_volume << "\n";
-		settings << engine::resolution_x << "\n" << engine::resolution_y << "\n";
-		settings << engine::fullscreen << "\n";
-		settings.close();
+		if (save_settings) {
+			std::ofstream settings;
+			settings.open("./save/settings.txt", std::ios::trunc);
+			settings << engine::ambience_volume << "\n";
+			settings << engine::sfx_volume << "\n";
+			settings << engine::resolution_x << "\n" << engine::resolution_y << "\n";
+			settings << engine::fullscreen << "\n";
+			settings.close();
+
+			save_settings = false;
+		}
 
 		settings_updated = false;
 	}
     
-    if (fmod(t, engine::caret_delay) < engine::caret_delay / 2) {
+    if (fmod(time, engine::caret_delay) < engine::caret_delay / 2) {
             engine::caret = '|';
     }
     else {
@@ -233,12 +239,6 @@ void engine::GameObject::updateAll() {
     }
 }
 
-
-bool engine::files::exists(const char* file_name) {
-    std::ifstream file;
-    file.open(file_name);
-    return file.is_open();
-}
 template <typename T>
 void engine::files::saveThing(T& thing, std::string file_name, bool append) {
     char* raw_data = (char*)&thing;
@@ -295,42 +295,6 @@ void engine::cameras::logic(Camera2D& camera) {
     }
 }
 
-void engine::strings::formatFloat(std::string &str, unsigned int precision) {
-    int pos = str.find('.');
-    while (str.length() - pos > precision + 1) {
-        str.pop_back();
-    }
-}
-std::string engine::strings::wrapToBox(std::string input_string, unsigned int window_width, int font_size) {
-    unsigned int width = MeasureText(input_string.c_str(), font_size);
-    std::string output_string = "";
-    unsigned int current_line_length = 0;
-    
-    std::string word = "";
-    for (unsigned int i = 0; i < input_string.length(); i++) {
-        if (input_string[i] == ' ') {
-            if (current_line_length + word.length() > width) {
-                output_string += '\n';
-                current_line_length = 0;
-            }
-            output_string += word + ' ';
-            current_line_length += word.length() + 1;
-            word = "";
-        }
-        else {
-            word += input_string[i];
-        }
-    }
-    if (current_line_length + word.length() > width) {
-        output_string += '\n';
-        current_line_length = 0;
-    }
-    output_string += word;
-    current_line_length += word.length();
-
-    return output_string;
-}
-
 Camera2D engine::windows::startTemplate(int width, int height, std::string title) {
     SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(width, height, title.c_str());
@@ -359,14 +323,6 @@ void engine::event_tracker::makeEventTracker() {
     }
 }
 
-bool engine::global_clock::exists = false;
-engine::global_clock::global_clock() {
-    count = 0;
-    update = [this]() {
-        count += GetFrameTime();
-        
-    };
-}
 
 
 #endif

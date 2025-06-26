@@ -15,12 +15,15 @@
 namespace engine {
     constexpr double pi = 3.14159265358979323846;
 
-	enum {NUMBER_OF_RESOLUTIONS = 4};
+	enum {NUMBER_OF_RESOLUTIONS = 7};
     constexpr std::array<Vector2, NUMBER_OF_RESOLUTIONS> resolutions = {
         Vector2(800, 600),
         Vector2(1280, 720),
         Vector2(1600, 900),
-        Vector2(1920, 1080)
+        Vector2(1920, 1080),
+		Vector2(2560, 1440),
+		Vector2(2560, 1600),
+		Vector2(3840, 2160)
     };
 
     extern unsigned int ambience_volume;
@@ -28,11 +31,14 @@ namespace engine {
     extern unsigned int resolution_x;
     extern unsigned int resolution_y;
     extern bool fullscreen;
+
 	extern bool settings_updated;
+	extern bool save_settings;
 
     extern bool checked;
     
     extern float frame_time;
+	extern float time;
 
     constexpr float backspace_delete_delay = 0.05;
 
@@ -61,18 +67,6 @@ namespace engine {
 
 	void loadAllSettings();
 
-    template <typename T>
-    struct ArrayList {
-        int count;
-        int capacity;
-        T* data;
-        ArrayList();
-        ~ArrayList();
-        void inflate();
-        void append(T item);
-        T pop();
-        T& operator[](int index);
-    };
     struct GameObject {
         bool should_close;
         enum types {unassigned = 0, window = 1, button = 2};
@@ -124,7 +118,6 @@ namespace engine {
         std::function<void()> mouseExit;
     };
     struct files {
-        bool exists(const char* file_name);
         template <typename T>
         static void saveThing(T& thing, std::string file_name, bool append = false);
         template <typename T>
@@ -135,10 +128,6 @@ namespace engine {
         static void logic(Camera2D& camera);
         static const float zoomIncrement;
     };
-    struct strings {
-        void formatFloat(std::string &str, unsigned int precision);
-        static std::string wrapToBox(std::string input_string, unsigned int window_width, int font_size);
-    };
     struct windows {
         static Camera2D startTemplate(int width, int height, std::string title);
     };
@@ -148,12 +137,6 @@ namespace engine {
         static bool exists;
         event_tracker();
         static void makeEventTracker();
-    };
-    struct global_clock : GameObject {
-        double count;
-        static bool exists;
-        global_clock();
-        static void makeGlobalClock();
     };
     
 }
