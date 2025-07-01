@@ -2,6 +2,8 @@
 #define BORDERS_CPP
 
 #include "borders.h"
+#include "player.h"
+#include "main_menu.h"
 
 borders::BackgroundStars::BackgroundStars() : engine::GameObject() {
     identity = "Background Stars";
@@ -27,5 +29,17 @@ borders::BackgroundStars::BackgroundStars() : engine::GameObject() {
 void borders::BackgroundStars::makeBackgroundStars() {
     engine::GameObject::objects.push_back(std::move(std::make_unique<BackgroundStars>()));
 }
+
+std::function<void()> borders::in_game = []() {
+	Player::makePlayer();
+	borders::BackgroundStars::makeBackgroundStars();
+};
+
+std::function<void()> borders::main_menu = []() {
+	engine::GameObject::objects.clear();
+	MainMenu::makeMainMenu();
+};
+
+
 
 #endif

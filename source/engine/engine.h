@@ -30,6 +30,8 @@ namespace engine {
     extern unsigned int sfx_volume;
     extern unsigned int resolution_x;
     extern unsigned int resolution_y;
+	extern unsigned int resolution_middle_x;
+	extern unsigned int resolution_middle_y;
     extern bool fullscreen;
 
 	extern bool settings_updated;
@@ -57,7 +59,7 @@ namespace engine {
 
     inline bool exit = false;
     extern unsigned int room;
-    extern bool change_room;
+    extern bool changed_room;
 
     extern char c;
 	extern int key_pressed;
@@ -66,6 +68,9 @@ namespace engine {
     constexpr float caret_delay = 0.5;
 
 	void loadAllSettings();
+
+	void changeRoom(int room);
+	extern std::unordered_map<int, std::function<void()>> rooms;
 
     struct GameObject {
         bool should_close;

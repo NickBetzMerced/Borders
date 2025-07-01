@@ -2,6 +2,7 @@
 #define PLAYER_CPP
 
 #include "player.h"
+#include "borders.h"
 
 Player::Player() : engine::GameObject() {
     identity = "Player";
@@ -47,6 +48,9 @@ Player::Player() : engine::GameObject() {
 				inventory_window->should_close = true;
 				inventory_window = nullptr;
 			}
+		}
+		if (engine::key_pressed == KEY_ESCAPE) {
+			engine::changeRoom(borders::ROOMS::MAIN_MENU);
 		}
     };
 

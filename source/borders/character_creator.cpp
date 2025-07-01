@@ -11,6 +11,7 @@ CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) 
     row_selection = 0;
     time_since_enter_pressed = 0;
 
+	identity = "CHARACTER CREATOR";
 
     std::function<void()> b_update;
     b_update = update;
@@ -60,7 +61,7 @@ CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) 
         time_since_enter_pressed += GetFrameTime();
     };
 
-    draw = [this]() {
+    drawGUI = [this]() {
         DrawRectangle(x, y, width, height, WHITE);
         DrawRectangleLinesEx(Rectangle(x, y, width, y + 75), 2, BLACK);
         DrawRectangleLinesEx(Rectangle(x, y, width, height), 2, BLACK);
@@ -125,8 +126,7 @@ CharacterCreator::CharacterCreator() : Window(Window::TYPES::CHARACTER_CREATOR) 
 
             Player::makePlayer();
             should_close = true;
-            engine::change_room = true;
-            engine::room = borders::ROOMS::IN_GAME;
+            engine::changeRoom(borders::ROOMS::IN_GAME);
         }
         time_since_enter_pressed = 0;
     };

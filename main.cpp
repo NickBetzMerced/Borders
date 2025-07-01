@@ -11,15 +11,18 @@ using namespace std;
 
 int main () {
     
+	engine::rooms.insert({borders::ROOMS::IN_GAME, borders::in_game});
+	engine::rooms.insert({borders::ROOMS::MAIN_MENU, borders::main_menu});
+
 	engine::loadAllSettings();
 
     engine::event_tracker::makeEventTracker();
     
-    MainMenu::makeMainMenu();
+	engine::changeRoom(borders::ROOMS::MAIN_MENU);
 
     Player* player = nullptr;
 
-    SetExitKey(KEY_ESCAPE);
+    SetExitKey(KEY_NULL);
 
     while (!engine::exit && !WindowShouldClose()) {
         engine::cameras::logic(engine::camera);
@@ -27,30 +30,24 @@ int main () {
             engine::camera.target = Vector2({player->x - engine::resolution_x / 2, player->y - engine::resolution_y / 2});
         }
 
-        if (engine::room == borders::ROOMS::CHARACTER_CREATOR && engine::change_room) {
+        if (engine::room == borders::ROOMS::CHARACTER_CREATOR && engine::changed_room) {
             if (!std::filesystem::exists("./save/player.txt")) {
-                engine::change_room = false;
+                engine::changed_room = false;
                 CharacterCreator::makeCharacterCreator();
             }
             else {
-                Player::makePlayer();
-                borders::BackgroundStars::makeBackgroundStars();
+                engine::changeRoom(borders::ROOMS::IN_GAME);
 
                 for (unsigned int i = 0; i < engine::GameObject::objects.size(); i++) {
-                    std::cout << "Object " << i << "\n";
+                    std::cout << "Object " << i << " : " << (engine::GameObject::objects[i]->identity) 	<< " X: " << engine::GameObject::objects[i]->x << " Y: " << engine::GameObject::objects[i]->y << "\n";
                     if (engine::GameObject::objects[i]->identity == "Player") {
                         player = static_cast<Player*>(engine::GameObject::objects[i].get());
                     }
                 }
-
-                engine::room = borders::ROOMS::IN_GAME;
-                engine::change_room = true;
             }
         }
 
         engine::camera.offset = Vector2({engine::resolution_x / 2 - (engine::resolution_x / 2) * engine::camera.zoom, engine::resolution_y / 2 - (engine::resolution_y / 2) * engine::camera.zoom});
-        
-        
 
         engine::GameObject::updateAll();
 

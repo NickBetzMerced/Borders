@@ -29,6 +29,8 @@ Window::Window(int type) {
     width = 1280;
     height = 720;
     this->type = type;
+
+	identity = "Window " + TITLES[this->type];
     
     resizable = false;
 

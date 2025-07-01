@@ -5,9 +5,9 @@
 
 struct Button : engine::GameObject {
     enum TYPES {PLAY, SETTINGS, BACK, EXIT, APPLY_SETTINGS, TRUE, FALSE, RESOLUTION};
+	
     int width;
     int height;
-    int type;
 
     Rectangle rec;
     bool clicked;
@@ -18,8 +18,8 @@ struct Button : engine::GameObject {
     std::string title;
     Vector2 text_dimension;
     Button();
-    Button(int x, int y, int width, int height, std::string title, int type);
-    static Button* makeButton(int x, int y, int width, int height, std::string title, int type);
+    Button(int x, int y, int width, int height, std::string title);
+    static Button* makeButton(int x, int y, int width, int height, std::string title);
 
     std::function<void()> onClick;
 };

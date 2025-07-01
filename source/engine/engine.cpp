@@ -9,12 +9,14 @@ unsigned int engine::ambience_volume = 100;
 unsigned int engine::sfx_volume = 100;
 unsigned int engine::resolution_x = 1600;
 unsigned int engine::resolution_y = 900;
+unsigned int engine::resolution_middle_x = engine::resolution_x / 2;
+unsigned int engine::resolution_middle_y = engine::resolution_y / 2;
 bool engine::fullscreen = false;
 bool engine::settings_updated = false;
 bool engine::save_settings = false;
 
 unsigned int engine::room = 0;
-bool engine::change_room = false;
+bool engine::changed_room = false;
 
 std::vector<std::unique_ptr<engine::GameObject>> engine::GameObject::objects;
 engine::GameObject* engine::GameObject::current_object = nullptr;
@@ -35,6 +37,21 @@ float engine::frame_time = GetFrameTime();
 
 Font engine::title_font = LoadFontEx("./assets/fonts/Audiowide.ttf", engine::l_font, 0, 0);
 Font engine::body_font = LoadFontEx("./assets/fonts/Anta.ttf", engine::m_font, 0, 0);    
+
+void engine::changeRoom(int room) {
+	engine::room = room;
+	engine::changed_room = true;
+
+	if (rooms[room]) {
+		rooms[room]();
+	}
+	else {
+		std::cout << "WARNING: ROOM HAS NO FUNCTION TO CREATE GAME OBJECTS" << std::endl;
+	}
+
+	std::cout << "CHANGED TO ROOM " << room << std::endl;
+}
+std::unordered_map<int, std::function<void()>> engine::rooms;
 
 engine::GameObject::GameObject() {
     parent = nullptr;
@@ -157,6 +174,8 @@ void engine::loadAllSettings() {
 		engine::resolution_x = std::stoi(line);
 		std::getline(save, line);
 		engine::resolution_y = std::stoi(line);
+		engine::resolution_middle_x = engine::resolution_x / 2;
+		engine::resolution_middle_y = engine::resolution_y / 2;
 
 		std::getline(save, line);
 		engine::fullscreen = std::stoi(line);
@@ -167,6 +186,9 @@ void engine::loadAllSettings() {
 }
 
 void engine::GameObject::updateAll() {
+	engine::resolution_middle_x = engine::resolution_x / 2;
+	engine::resolution_middle_y = engine::resolution_y / 2;
+	
     mouse_pos = GetMousePosition();
     l_mouse_clicked = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 

@@ -14,17 +14,16 @@ void MainMenu::closeButton(Button*& button) {
 MainMenu::MainMenu() : engine::GameObject::GameObject() {
     visible = true;
 
-	unsigned int middle_x = engine::resolution_x / 2;
-	unsigned int middle_y = engine::resolution_y / 2;
+	identity = "Main Menu";
 
     back_button = nullptr;
     apply_settings_button = nullptr;
     toggle_button = nullptr;
 	resolution_button = nullptr;
 
-    play_button = Button::makeButton(middle_x, middle_y - 100, 160, 40, std::string("PLAY"), Button::TYPES::PLAY);
-	settings_button = Button::makeButton(middle_x, middle_y, 160, 40, std::string("SETTINGS"), Button::TYPES::SETTINGS);
-	exit_button = Button::makeButton(middle_x, middle_y + 100, 160, 40, std::string("EXIT"), Button::TYPES::EXIT);
+    play_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y - 100, 160, 40, std::string("PLAY"));
+	settings_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y, 160, 40, std::string("SETTINGS"));
+	exit_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y + 100, 160, 40, std::string("EXIT"));
 
 
 	row_selection = 0;
@@ -97,9 +96,6 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
 		selected_resolution_x = engine::resolutions[column_selection[RESOLUTION_INDEX]].x;
 		selected_resolution_y = engine::resolutions[column_selection[RESOLUTION_INDEX]].y;
 
-		unsigned int middle_x = engine::resolution_x / 2;
-		unsigned int middle_y = engine::resolution_y / 2;
-
         if (engine::room == borders::ROOMS::SETTINGS) {
             text = "Ambience volume: " + std::to_string(selected_ambience_volume);
             text += "\nSFX volume: " + std::to_string(selected_sfx_volume);
@@ -116,20 +112,19 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
 
         if (play_button && play_button->clicked) {
             std::cout << "GOING TO GAME" << std::endl;
-            engine::room = borders::ROOMS::CHARACTER_CREATOR;
-            engine::change_room = true;
+            engine::changeRoom(borders::ROOMS::CHARACTER_CREATOR);
 
 			MainMenu::closeButton(play_button);
 			MainMenu::closeButton(settings_button);
 			MainMenu::closeButton(exit_button);
 
+			should_close = true;
         }
-        if (settings_button && settings_button->clicked) {
+        else if (settings_button && settings_button->clicked) {
             std::cout << "OPENING SETTINGS" << std::endl;
 
 			row_selection = 0;
-            engine::room = borders::ROOMS::SETTINGS;
-            engine::change_room = true;
+            engine::changeRoom(borders::ROOMS::SETTINGS);
 
 			selected_ambience_volume = engine::ambience_volume;
 			selected_sfx_volume = engine::sfx_volume;
@@ -141,12 +136,12 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
 			MainMenu::closeButton(settings_button);
 			MainMenu::closeButton(exit_button);
 
-            back_button = Button::makeButton(engine::resolution_x - 200, engine::resolution_y - 100, 160, 40, std::string("BACK"), Button::TYPES::BACK);
-            apply_settings_button = Button::makeButton(engine::resolution_x - 500, engine::resolution_y - 100, 280, 40, std::string("APPLY SETTINGS"), Button::TYPES::APPLY_SETTINGS);
+            back_button = Button::makeButton(engine::resolution_x - 200, engine::resolution_y - 100, 160, 40, std::string("BACK"));
+            apply_settings_button = Button::makeButton(engine::resolution_x - 500, engine::resolution_y - 100, 280, 40, std::string("APPLY SETTINGS"));
             
 		
         }
-		if (apply_settings_button && apply_settings_button->clicked) {
+		else if (apply_settings_button && apply_settings_button->clicked) {
 			engine::ambience_volume = selected_ambience_volume;
 			engine::sfx_volume = selected_sfx_volume;
 			engine::resolution_x = selected_resolution_x;
@@ -158,21 +153,20 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
 
 			MainMenu::closeButton(back_button);
 			MainMenu::closeButton(apply_settings_button);
-			back_button = Button::makeButton(engine::resolution_x - 200, engine::resolution_y - 100, 160, 40, std::string("BACK"), Button::TYPES::BACK);
-            apply_settings_button = Button::makeButton(engine::resolution_x - 500, engine::resolution_y - 100, 280, 40, std::string("APPLY SETTINGS"), Button::TYPES::APPLY_SETTINGS);
+			back_button = Button::makeButton(engine::resolution_x - 200, engine::resolution_y - 100, 160, 40, std::string("BACK"));
+            apply_settings_button = Button::makeButton(engine::resolution_x - 500, engine::resolution_y - 100, 280, 40, std::string("APPLY SETTINGS"));
 		}
-        if (back_button && back_button->clicked) {
-            engine::room = borders::ROOMS::MAIN_MENU;
-            engine::change_room = true;
+        else if (back_button && (back_button->clicked || engine::key_pressed == KEY_ESCAPE)) {
+            engine::changeRoom(borders::ROOMS::MAIN_MENU);
 
 			MainMenu::closeButton(back_button);
 			MainMenu::closeButton(apply_settings_button);
 
-            play_button = Button::makeButton(middle_x, middle_y - 100, 160, 40, std::string("PLAY"), Button::TYPES::PLAY);
-            settings_button = Button::makeButton(middle_x, middle_y, 160, 40, std::string("SETTINGS"), Button::TYPES::SETTINGS);
-            exit_button = Button::makeButton(middle_x, middle_y + 100, 160, 40, std::string("EXIT"), Button::TYPES::EXIT);
+            play_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y - 100, 160, 40, std::string("PLAY"));
+            settings_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y, 160, 40, std::string("SETTINGS"));
+            exit_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y + 100, 160, 40, std::string("EXIT"));
         }
-        if (exit_button && exit_button->clicked) {
+        else if (exit_button && (exit_button->clicked)) {
             engine::exit = true;
         }
     };

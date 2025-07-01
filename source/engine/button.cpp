@@ -3,16 +3,16 @@
 
 #include "button.h"
 
-Button::Button(int x, int y, int width, int height, std::string title, int type) : engine::GameObject::GameObject() {
+Button::Button(int x, int y, int width, int height, std::string title) : engine::GameObject::GameObject() {
     this->x = x;
     this->y = y;
     this->width = width;
     this->height = height;
-    this->type = type;
     rec = Rectangle(this->x - (this->width / 2), this->y - (this->height / 2), this->width, this->height);
     clicked = false;
 
     this->title = title;
+	identity = "Button: " + title;
     text_color = WHITE;
     box_color = BLACK;
     text_color.a = 127;
@@ -48,8 +48,8 @@ Button::Button(int x, int y, int width, int height, std::string title, int type)
     };
 }
 
-Button* Button::makeButton(int x, int y, int width, int height, std::string title, int type) {
-    std::unique_ptr<Button> button = std::make_unique<Button>(x, y, width, height, title, type);
+Button* Button::makeButton(int x, int y, int width, int height, std::string title) {
+    std::unique_ptr<Button> button = std::make_unique<Button>(x, y, width, height, title);
     Button* button_ptr = button.get();
     engine::GameObject::objects.push_back(std::move(button));
     return button_ptr;
