@@ -4,6 +4,8 @@
 #include "../engine/engine.h"
 #include "../engine/window.h"
 
+struct Item;
+
 struct Player : engine::GameObject {
     float turnRate;
     float speed;
@@ -12,6 +14,7 @@ struct Player : engine::GameObject {
 	float fuel;
 	float fuel_consumption;
 
+	std::vector<Item> inventory;
 	Window* inventory_window;
 
     std::string hud_text;

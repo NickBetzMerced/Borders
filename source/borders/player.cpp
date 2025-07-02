@@ -3,6 +3,8 @@
 
 #include "player.h"
 #include "borders.h"
+#include "item.h"
+#include <iostream>
 
 Player::Player() : engine::GameObject() {
     identity = "Player";
@@ -12,6 +14,8 @@ Player::Player() : engine::GameObject() {
 
 	fuel = 1000;
 	fuel_consumption = 0.02;
+
+	inventory = {Item(Item::TYPES::FUEL, (float)1000)};
 
     x = engine::resolution_x / 2;
     y = engine::resolution_y / 2;
@@ -51,6 +55,13 @@ Player::Player() : engine::GameObject() {
 		}
 		if (engine::key_pressed == KEY_ESCAPE) {
 			engine::changeRoom(borders::ROOMS::MAIN_MENU);
+		}
+		if (inventory_window != nullptr) {
+			std::string text;
+			for (unsigned int i = 0; i < inventory.size(); i++) {
+				text += inventory[i].getName() + ": " + std::to_string(inventory[i].getMass());
+			}
+			std::cout << text << std::endl;
 		}
     };
 
