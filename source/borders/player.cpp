@@ -4,7 +4,10 @@
 #include "player.h"
 #include "borders.h"
 #include "item.h"
+#include "inventory_window.h"
 #include <iostream>
+
+Player* Player::player_ptr = nullptr;
 
 Player::Player() : engine::GameObject() {
     identity = "Player";
@@ -46,7 +49,7 @@ Player::Player() : engine::GameObject() {
 
 		if (engine::key_pressed == KEY_I) {
 			if (inventory_window == nullptr) {
-				inventory_window = Window::makeWindow(Window::TYPES::INVENTORY);
+				inventory_window = InventoryWindow::makeInventoryWindow();
 			}
 			else {
 				inventory_window->should_close = true;
@@ -100,7 +103,9 @@ Player::Player() : engine::GameObject() {
 }
 
 void Player::makePlayer() {
-    engine::GameObject::objects.push_back(std::move(std::make_unique<Player>()));
+    std::unique_ptr<Player> player = std::make_unique<Player>();
+	Player::player_ptr = player.get();
+	engine::GameObject::objects.push_back(std::move(player));
 }
 
 #endif

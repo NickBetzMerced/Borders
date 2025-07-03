@@ -4,8 +4,8 @@
 #include "engine.h"
 
 struct Window : engine::GameObject {
-    enum TYPES {CHARACTER_CREATOR, INVENTORY};
-    static const std::array<std::string, 2> TITLES;
+    enum TYPES {CHARACTER_CREATOR, INVENTORY, TOTAL_WINDOW_TYPES};
+    static const std::array<std::string, TOTAL_WINDOW_TYPES> TITLES;
     int type;
 
     std::string title;

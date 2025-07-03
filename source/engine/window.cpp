@@ -13,7 +13,7 @@ Window* Window::makeWindow(int type) {
     return window_ptr;
 }
 
-const std::array<std::string, 2> Window::TITLES = {
+const std::array<std::string, Window::TOTAL_WINDOW_TYPES> Window::TITLES = {
     "Character Creator",
 	"Inventory"
 };

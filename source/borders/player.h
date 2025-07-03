@@ -6,7 +6,10 @@
 
 struct Item;
 
+struct InventoryWindow;
+
 struct Player : engine::GameObject {
+	static Player* player_ptr;
     float turnRate;
     float speed;
     float acceleration;
@@ -15,7 +18,7 @@ struct Player : engine::GameObject {
 	float fuel_consumption;
 
 	std::vector<Item> inventory;
-	Window* inventory_window;
+	InventoryWindow* inventory_window;
 
     std::string hud_text;
     Player();
