@@ -27,7 +27,7 @@ void Item::updateDimensions() {
 		mass = density * volume;
 	}
 	else {
-		volume = mass * density;
+		volume = mass / density;
 	}
 }
 

@@ -14,11 +14,16 @@ InventoryWindow::InventoryWindow() : Window(Window::TYPES::INVENTORY) {
 	std::function<void()> b_update;
 	b_update = update;
 	update = [this, b_update]() {
+		total_mass = 0;
+		total_volume = 0;
 		text = "ITEMS:\n";
 		for (unsigned int i = 0; i < Player::player_ptr->inventory.size(); i++) {
 			Item* current_item = &(Player::player_ptr->inventory[i]);
 			text += current_item->getName() + std::format(": {:.1f} kg", current_item->getMass()) + "\n";
+			total_mass += current_item->getMass();
+			total_volume += current_item->getVolume();
 		}
+		text += std::format("TOTAL MASS: {:.1f} kg, TOTAL VOLUME: {:.1f} CUBIC METERS", total_mass, total_volume);
 	};
 
 	std::function<void()> b_drawGUI;

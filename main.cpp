@@ -52,6 +52,7 @@ int main () {
         engine::GameObject::updateAll();
 
         std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}", engine::mouse_pos.x, engine::mouse_pos.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, engine::camera.target.x, engine::camera.target.y, engine::camera.offset.x, engine::camera.offset.y);
+		text += std::format("\nTIME: {:.1f}", engine::time);
         BeginDrawing();
             ClearBackground(BLACK);
             

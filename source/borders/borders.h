@@ -18,6 +18,15 @@ namespace borders {
         BackgroundStars();
         static void makeBackgroundStars();
     };
+
+	struct TimeCycleTracker : engine::GameObject {
+		enum {SECONDS_PER_DAY = 15};
+		static TimeCycleTracker* time_cycle_tracker_ptr;
+		unsigned int day;
+		float seconds;
+		TimeCycleTracker();
+		static void makeTimeCycleTracker();
+	};
 }
 
 #endif

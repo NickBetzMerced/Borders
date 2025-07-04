@@ -10,6 +10,8 @@ struct InventoryWindow : Window {
 	static bool exists;
 	unsigned int page;
 	std::string text;
+	float total_mass;
+	float total_volume;
 
 	InventoryWindow();
 	~InventoryWindow();

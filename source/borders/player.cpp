@@ -15,10 +15,11 @@ Player::Player() : engine::GameObject() {
     speed = 0;
     acceleration = 20.0;
 
-	fuel = 1000;
-	fuel_consumption = 0.02;
+	fuel = 27;
+	fuel_consumption = 0.002;
 
-	inventory = {Item(Item::TYPES::FUEL, (float)1000)};
+	inventory = {Item(Item::TYPES::FUEL, (float)27)};
+	fuel_ptr = &inventory[0];
 
     x = engine::resolution_x / 2;
     y = engine::resolution_y / 2;
@@ -45,7 +46,7 @@ Player::Player() : engine::GameObject() {
         else if (rotation < -360) {
             rotation += 360;
         }
-        hud_text = std::format("ROTATION: {:.0f} \nSPEED: {:.0f} \nFUEL: {:.1f} GALLONS", rotation, speed, fuel);
+        hud_text = std::format("ROTATION: {:.0f} \nSPEED: {:.0f} \nFUEL: {:.1f} KG\nDAY: {}", rotation, speed, fuel_ptr->getMass(), borders::TimeCycleTracker::time_cycle_tracker_ptr->day);
 
 		if (engine::key_pressed == KEY_I) {
 			if (inventory_window == nullptr) {
@@ -58,13 +59,6 @@ Player::Player() : engine::GameObject() {
 		}
 		if (engine::key_pressed == KEY_ESCAPE) {
 			engine::changeRoom(borders::ROOMS::MAIN_MENU);
-		}
-		if (inventory_window != nullptr) {
-			std::string text;
-			for (unsigned int i = 0; i < inventory.size(); i++) {
-				text += inventory[i].getName() + ": " + std::to_string(inventory[i].getMass());
-			}
-			std::cout << text << std::endl;
 		}
     };
 
@@ -85,16 +79,16 @@ Player::Player() : engine::GameObject() {
     };
 
     holdUp = [this]() {
-		if (fuel > 0) {
+		if (fuel_ptr->getMass() > 0) {
         	speed += acceleration * engine::frame_time;
-			fuel -= acceleration * fuel_consumption * engine::frame_time;
+			fuel_ptr->consume(acceleration * fuel_consumption * engine::frame_time);
 		}
     };
 
     holdDown = [this]() {
-        if (speed > 0 && fuel > 0) {
+        if (speed > 0 && fuel_ptr->getMass() > 0) {
             speed -= acceleration * engine::frame_time;
-			fuel -= acceleration * fuel_consumption * engine::frame_time;
+			fuel_ptr->consume(acceleration * fuel_consumption * engine::frame_time);
         }
         else {
             speed = 0;

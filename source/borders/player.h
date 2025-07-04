@@ -15,6 +15,7 @@ struct Player : engine::GameObject {
     float acceleration;
 
 	float fuel;
+	Item* fuel_ptr;
 	float fuel_consumption;
 
 	std::vector<Item> inventory;
