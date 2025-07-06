@@ -12,9 +12,10 @@ struct Person {
 	std::string name;
 	long int money;
 
-	Faction faction;
+	Faction* faction;
 
-	std::vector<Ship> ships_owned;
+	std::vector<Ship*> ships_owned;
+	Ship* current_ship;
 };
 
 #endif

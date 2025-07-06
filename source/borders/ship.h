@@ -3,17 +3,18 @@
 
 #include "../engine/engine.h"
 #include "item.h"
-#include "ship_room.h"
+#include "ship_parts.h"
 #include "person.h"
 
 struct Ship : engine::GameObject {
-	enum TYPES {};
-	static std::unordered_map<std::string, int> names;
-	static std::unordered_map<std::string, float> turn_rates;
-	static std::unordered_map<std::string, float> speeds;
-	static std::unordered_map<std::string, float> accelerations;
+	enum TYPES {SHUTTLE, TOTAL_NUMBER_OF_SHIPS};
 
-	Person owner;
+	static std::array<int, TOTAL_NUMBER_OF_SHIPS> names;
+	static std::array<float, TOTAL_NUMBER_OF_SHIPS> turn_rates;
+	static std::array<float, TOTAL_NUMBER_OF_SHIPS> speeds;
+	static std::array<float, TOTAL_NUMBER_OF_SHIPS> accelerations;
+
+	Person* owner;
 	std::string name;
 	float turn_rate;
     float speed;
@@ -21,7 +22,7 @@ struct Ship : engine::GameObject {
 
 	float fuel_consumption;
 	std::vector<Item> inventory;
-	std::vector<ShipRoom> rooms; 
+	std::vector<ShipPart> parts; 
 };
 
 #endif

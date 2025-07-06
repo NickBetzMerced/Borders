@@ -25,6 +25,9 @@ int main () {
     SetExitKey(KEY_NULL);
 
     while (!engine::exit && !WindowShouldClose()) {
+		if (engine::key_pressed == KEY_F3) {
+			std::cout << engine::GameObject::objects.size() << std::endl;
+		}
         engine::cameras::logic(engine::camera);
         if (player != nullptr) {
             engine::camera.target = Vector2({player->x - engine::resolution_x / 2, player->y - engine::resolution_y / 2});
@@ -51,7 +54,7 @@ int main () {
 
         engine::GameObject::updateAll();
 
-        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f}", engine::mouse_pos.x, engine::mouse_pos.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, engine::camera.target.x, engine::camera.target.y, engine::camera.offset.x, engine::camera.offset.y);
+        std::string text = std::format("MOUSE X: {:.0f} MOUSE Y: {:.0f} \nRELATIVE MOUSE X: {:.0f} RELATIVE MOUSE Y: {:.0f} \nCAMERA TARGET: {:.0f} x {:.0f}\nCAMERA OFFSET:  {:.0f} x {:.0f} \nROOM: {}", engine::mouse_pos.x, engine::mouse_pos.y, engine::relative_mouse_pos.x, engine::relative_mouse_pos.y, engine::camera.target.x, engine::camera.target.y, engine::camera.offset.x, engine::camera.offset.y, engine::room);
 		text += std::format("\nTIME: {:.1f}", engine::time);
         BeginDrawing();
             ClearBackground(BLACK);

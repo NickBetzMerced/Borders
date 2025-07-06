@@ -157,14 +157,9 @@ MainMenu::MainMenu() : engine::GameObject::GameObject() {
             apply_settings_button = Button::makeButton(engine::resolution_x - 500, engine::resolution_y - 100, 280, 40, std::string("APPLY SETTINGS"));
 		}
         else if (back_button && (back_button->clicked || engine::key_pressed == KEY_ESCAPE)) {
-            engine::changeRoom(borders::ROOMS::MAIN_MENU);
-
 			MainMenu::closeButton(back_button);
 			MainMenu::closeButton(apply_settings_button);
-
-            play_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y - 100, 160, 40, std::string("PLAY"));
-            settings_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y, 160, 40, std::string("SETTINGS"));
-            exit_button = Button::makeButton(engine::resolution_middle_x, engine::resolution_middle_y + 100, 160, 40, std::string("EXIT"));
+            engine::changeRoom(borders::ROOMS::MAIN_MENU);
         }
         else if (exit_button && (exit_button->clicked)) {
             engine::exit = true;
