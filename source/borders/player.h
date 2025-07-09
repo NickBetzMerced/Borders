@@ -1,27 +1,20 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "../engine/engine.h"
 #include "../engine/window.h"
+#include "ship.h"
 
 struct Item;
 
 struct InventoryWindow;
 
-struct Player : engine::GameObject {
+struct Player : Ship {
 	static Player* player_ptr;
-    float turnRate;
-    float speed;
-    float acceleration;
 
-	float fuel;
-	Item* fuel_ptr;
-	float fuel_consumption;
-
-	std::vector<Item> inventory;
 	InventoryWindow* inventory_window;
 
     std::string hud_text;
+	std::string hud_text_2;
     Player();
     static void makePlayer();
 };

@@ -9,6 +9,7 @@ bool InventoryWindow::exists = false;
 
 InventoryWindow::InventoryWindow() : Window(Window::TYPES::INVENTORY) {
 	identity = "Inventory Window";
+	title = "Inventory Window";
 	page = 0;
 
 	std::function<void()> b_update;
@@ -19,7 +20,14 @@ InventoryWindow::InventoryWindow() : Window(Window::TYPES::INVENTORY) {
 		text = "ITEMS:\n";
 		for (unsigned int i = 0; i < Player::player_ptr->inventory.size(); i++) {
 			Item* current_item = &(Player::player_ptr->inventory[i]);
-			text += current_item->getName() + std::format(": {:.1f} kg", current_item->getMass()) + "\n";
+			text += current_item->getName() + std::format(": {:.1f} kg", current_item->getMass()) + ", VOLUME: ";
+			if (current_item->getVolume() < 0.05) {
+				text += std::format("{:.1f} LITERS", current_item->getVolume() * 1000);
+			}
+			else {
+				text += std::format("{:.1f} CUBIC METERS", current_item->getVolume());
+			}
+			text += "\n";
 			total_mass += current_item->getMass();
 			total_volume += current_item->getVolume();
 		}

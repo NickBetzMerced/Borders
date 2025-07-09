@@ -5,6 +5,8 @@
 #include <map>
 #include <iostream>
 
+unsigned int engine::time_multiplier = 1;
+
 unsigned int engine::ambience_volume = 100;
 unsigned int engine::sfx_volume = 100;
 unsigned int engine::resolution_x = 1600;

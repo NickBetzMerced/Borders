@@ -26,6 +26,8 @@ namespace engine {
 		Vector2(3840, 2160)
     };
 
+	extern unsigned int time_multiplier;
+
     extern unsigned int ambience_volume;
     extern unsigned int sfx_volume;
     extern unsigned int resolution_x;

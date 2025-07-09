@@ -1,29 +1,34 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <unordered_map>
 #include <string>
+#include <array>
 
 /*
 Volume is measured in cubic meters, mass in kilograms
+
+12,000,000 kWh usable per kg of uranium
+3kW per person for life support
+72 kWh per person per day (15 seconds), or 4.8 kWh per person per second
 */
 
 struct Item {
-	enum TYPES {FUEL};
+	enum TYPES {HYDROGEN, URANIUM,
+	NUMBER_OF_ITEMS};
 	int type;
 
 	private:
 	float density;
-	static std::unordered_map<int, float> densities;
-	static std::unordered_map<int, float> volumes;
+	static std::array<float, NUMBER_OF_ITEMS> densities;
+	static std::array<float, NUMBER_OF_ITEMS> volumes;
 	float item_volume;
 	float volume;
 	float mass;
 
-	static std::unordered_map<int, std::string> names;
+	static std::array<std::string, NUMBER_OF_ITEMS> names;
 	std::string name;
 
-	static std::unordered_map<int, bool> countabilities;
+	static std::array<bool, NUMBER_OF_ITEMS> countabilities;
 	bool countable;
 	int quantity;
 

@@ -67,7 +67,7 @@ int main () {
 
             EndMode2D();
             
-			DrawTextEx(engine::body_font, text.c_str(), Vector2(10, engine::resolution_y - 200), engine::m_font, engine::spacing, WHITE);
+			DrawTextEx(engine::body_font, text.c_str(), Vector2(20, engine::resolution_y - 200), engine::m_font, engine::spacing, WHITE);
             engine::GameObject::drawAllGUI();
             
         EndDrawing();

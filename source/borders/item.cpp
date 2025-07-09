@@ -8,17 +8,20 @@
 Volume is measured in cubic meters, mass in kilograms
 */
 
-std::unordered_map<int, float> Item::densities = {
-	{Item::TYPES::FUEL, 70.85}
+std::array<float, Item::NUMBER_OF_ITEMS> Item::densities = {
+	70.85, 
+	19050
 };
-std::unordered_map<int, bool> Item::countabilities = {
-	{Item::TYPES::FUEL, false}	
+std::array<bool, Item::NUMBER_OF_ITEMS> Item::countabilities = {
+	false,
+	false
 };
 
-std::unordered_map<int, float> Item::volumes;
+std::array<float, Item::NUMBER_OF_ITEMS> Item::volumes;
 
-std::unordered_map<int, std::string> Item::names = {
-	{Item::TYPES::FUEL, "Fuel"}	
+std::array<std::string, Item::NUMBER_OF_ITEMS> Item::names = {
+	"Hydrogen",
+	"Uranium-235"
 };
 
 void Item::updateDimensions() {

@@ -2,15 +2,23 @@
 #define BORDERS_SHIP_PARTS_H
 
 #include <string>
-#include <unordered_map>
+#include <array>
 
 struct ShipPart {
-	enum TYPES {RESEARCH_BAY, 
+	enum TYPES {FISSION_ENGINE, FUSION_ENGINE, ANTIMATTER_ENGINE,
+		RESEARCH_BAY, 
 		CCQ_TRAINING_FACILITY, 
-		SMALL_CARGO_BAY, MEDIUM_CARGO_BAY, LARGE_CARGO_BAY, MANUFACTURING_BAY,
-		ONBOARD_FARM};
+		SMALL_CARGO_BAY, MEDIUM_CARGO_BAY, LARGE_CARGO_BAY, 
+		SMALL_MANUFACTURING_BAY, MEDIUM_MANUFACTURING_BAY,
+		SMALL_ONBOARD_FARM,
+		SIMPLE_QUARTERS, FINE_QUARTERS, LUXURIOUS_QUARTERS,
+		SIMPLE_DORM, FINE_DORM, LUXURIOUS_DORM,
+		NUMBER_OF_SHIP_PARTS};
 	
-	static std::unordered_map<int, std::string> names;
+	static std::array<std::string, NUMBER_OF_SHIP_PARTS> names;
+	static std::array<float, NUMBER_OF_SHIP_PARTS> masses;
+
+	float mass;
 	std::string name;
 	int type;
 	ShipPart(int type);
